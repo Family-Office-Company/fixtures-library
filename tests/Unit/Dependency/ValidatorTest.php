@@ -11,6 +11,7 @@ use FamilyOffice\FixturesLibrary\Tests\Support\Fixture2;
 use FamilyOffice\FixturesLibrary\Tests\Support\Fixture3;
 use FamilyOffice\FixturesLibrary\Tests\Support\Fixture4;
 use FamilyOffice\FixturesLibrary\Tests\Support\Fixture5;
+use FamilyOffice\FixturesLibrary\Tests\Support\FixtureWithConstructorArgument;
 use PHPUnit\Framework\TestCase;
 
 final class ValidatorTest extends TestCase
@@ -60,5 +61,15 @@ final class ValidatorTest extends TestCase
         yield [__CLASS__];
         yield ['test'];
         yield [\stdClass::class];
+    }
+
+    /**
+     * @throws InvalidFixtureException
+     */
+    public function testFixtureWithConstructorArgumentThrowsError(): void
+    {
+        $validator = new Validator();
+        $validator->validateDependencyClass(FixtureWithConstructorArgument::class);
+        $this->assertTrue(true);
     }
 }
