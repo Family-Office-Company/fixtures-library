@@ -47,7 +47,10 @@ final class ChainBuilder
 
             // saving current chain for circular reference detection
             $currentChain = [$fixtureClass];
-            $dependencyChain[$fixtureClass] = $this->buildDependencySubChain($fixture->getDependencies(), $currentChain);
+            $dependencyChain[$fixtureClass] = $this->buildDependencySubChain(
+                $fixture->getDependencies(),
+                $currentChain
+            );
 
             $this->computed[] = $fixtureClass;
         }
