@@ -1,0 +1,108 @@
+name: Quality analysis
+
+on: [ push ]
+
+jobs:
+  phpstan:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: 7.4
+
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Install dependencies
+        run: make install
+
+      - name: PHPStan Static Analysis
+        uses: php-actions/phpstan@v2
+
+  psalm:
+    name: Psalm
+    runs-on: ubuntu-latest
+    steps:
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: 7.4
+
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Install dependencies
+        run: make install
+
+      - name: Psalm
+        run: ./vendor/bin/psalm
+
+  ecs:
+    name: Easy coding standard
+    runs-on: ubuntu-latest
+    steps:
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: 7.4
+
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Install dependencies
+        run: make install
+
+      - name: ECS
+        run: ./vendor/bin/ecs check
+
+  composer_normalize:
+    name: composer.json normalizer
+    runs-on: ubuntu-latest
+    steps:
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: 7.4
+
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Install dependencies
+        run: make install
+
+      - name: composer normalize
+        run: composer normalize --dry-run
+
+  composer_validate:
+    name: composer.json validation
+    runs-on: ubuntu-latest
+    steps:
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: 7.4
+
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Validate composer.json
+        run: composer validate
+
+  phpunit:
+    name: Run PHPUnit tests
+    runs-on: ubuntu-latest
+    steps:
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: 7.4
+
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Install dependencies
+        run: make install
+
+      - name: Run tests
+        run: vendor/bin/phpunit

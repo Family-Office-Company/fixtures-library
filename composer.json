@@ -1,0 +1,52 @@
+{
+  "name": "family-office/fixtures-library",
+  "type": "library",
+  "description": "An easy-to-use library for fixture and dependency loading.",
+  "keywords": [
+    "fixture-loading",
+    "dependency-parsing"
+  ],
+  "homepage": "https://github.com/Family-Office-Company/fixtures-library",
+  "readme": "README.md",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Family Office",
+      "email": "contact@family-office.holdings",
+      "homepage": "https://github.com/Family-Office-Company",
+      "role": "Manufacturer"
+    }
+  ],
+  "require": {
+    "php": ">=7.4"
+  },
+  "require-dev": {
+    "ergebnis/composer-normalize": "^2.15",
+    "ergebnis/phpstan-rules": "^0.15.3",
+    "phpstan/extension-installer": "^1.1",
+    "phpstan/phpstan": "^0.12.97",
+    "phpstan/phpstan-deprecation-rules": "^0.12.6",
+    "phpstan/phpstan-phpunit": "^0.12.22",
+    "phpstan/phpstan-strict-rules": "^0.12.11",
+    "phpunit/phpunit": "^9.5",
+    "psalm/plugin-phpunit": "^0.16.1",
+    "roave/security-advisories": "dev-latest",
+    "symfony/thanks": "^1.2",
+    "symplify/easy-coding-standard": "^9.4",
+    "vimeo/psalm": "^4.9"
+  },
+  "autoload": {
+    "psr-4": {
+      "FamilyOffice\\FixturesLibrary\\": "src"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "FamilyOffice\\FixturesLibrary\\Example\\": "example",
+      "FamilyOffice\\FixturesLibrary\\Tests\\": "tests"
+    }
+  },
+  "support": {
+    "issues": "https://github.com/Family-Office-Company/fixtures-library/issues"
+  }
+}
