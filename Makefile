@@ -6,6 +6,7 @@ help: ## display command overview
 
 install: ## install dependencies
 	composer update --no-interaction --no-progress --no-ansi
+	phive install
 
 clean: ## cleanup installed dependencies and lock files
 	rm -rf composer.lock
@@ -28,3 +29,4 @@ check: | cs analysis test ## run all quality checks
 .PHONY: test
 test: ## run unit tests
 	vendor/bin/phpunit
+	XDEBUG_MODE=coverage tools/infection

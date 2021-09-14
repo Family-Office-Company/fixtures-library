@@ -18,7 +18,7 @@ final class Validator
     {
         if (\is_string($dependencyClass)
             && class_exists($dependencyClass)
-            && false !== ($implements = class_implements($dependencyClass))
+            && \is_array(($implements = class_implements($dependencyClass)))
             && \in_array(FixtureInterface::class, $implements, true)) {
             return;
         }

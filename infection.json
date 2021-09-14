@@ -1,0 +1,21 @@
+{
+  "$schema": "https://raw.githubusercontent.com/infection/infection/0.25.1/resources/schema.json",
+  "source": {
+    "directories": [
+      "src"
+    ]
+  },
+  "mutators": {
+    "@default": true
+  },
+  "logs": {
+    "text": "logs/infection.log",
+    "summary": "logs/summary.log",
+    "json": "logs/infection-log.json",
+    "perMutator": "logs/per-mutator.md",
+    "github": true,
+    "badge": {
+      "branch": "/^release-.*$/"
+    }
+  }
+}
