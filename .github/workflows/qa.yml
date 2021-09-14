@@ -18,7 +18,7 @@ jobs:
         run: make install
 
       - name: PHPStan Static Analysis
-        uses: php-actions/phpstan@v2
+        run: vendor/bin/phpstan
 
   psalm:
     name: Psalm
@@ -36,7 +36,7 @@ jobs:
         run: make install
 
       - name: Psalm
-        run: ./vendor/bin/psalm
+        run: vendor/bin/psalm
 
   ecs:
     name: Easy coding standard
