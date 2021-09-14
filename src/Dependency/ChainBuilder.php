@@ -47,7 +47,7 @@ final class ChainBuilder
 
             // saving current chain for circular reference detection
             $currentChain = [$fixtureClass];
-            $dependencyChain[$fixtureClass] = $this->buildDependencyChain($fixture->getDependencies(), $currentChain);
+            $dependencyChain[$fixtureClass] = $this->buildDependencySubChain($fixture->getDependencies(), $currentChain);
 
             $this->computed[] = $fixtureClass;
         }
@@ -63,7 +63,7 @@ final class ChainBuilder
      *
      * @throws InvalidFixtureException|CircularReferenceException
      */
-    private function buildDependencyChain(array $dependencyClasses, array $currentChain): array
+    private function buildDependencySubChain(array $dependencyClasses, array $currentChain): array
     {
         $dependencySubChain = [];
 
@@ -81,7 +81,7 @@ final class ChainBuilder
 
             /** @var FixtureInterface $dependency */
             $dependency = new $dependencyClass();
-            $dependencySubChain[$dependencyClass] = $this->buildDependencyChain(
+            $dependencySubChain[$dependencyClass] = $this->buildDependencySubChain(
                 $dependency->getDependencies(),
                 $currentChain
             );
