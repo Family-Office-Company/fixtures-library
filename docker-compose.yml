@@ -1,0 +1,8 @@
+services:
+  devcontainer:
+    container_name: fixtures_library_devcontainer
+    build: .
+    volumes:
+      - ./:/code
+    environment:
+      - XDEBUG_ENABLED=1
