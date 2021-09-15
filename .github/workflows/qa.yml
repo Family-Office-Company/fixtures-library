@@ -4,6 +4,7 @@ on: [ push ]
 
 jobs:
   phpstan:
+    name: PHPStan
     runs-on: ubuntu-latest
     steps:
       - name: Setup PHP
@@ -124,9 +125,6 @@ jobs:
 
       - name: Download Infection
         run: wget https://github.com/infection/infection/releases/download/0.25.0/infection.phar && chmod +x infection.phar
-
-      - name: Verify Infection
-        run: wget https://github.com/infection/infection/releases/download/0.25.0/infection.phar.asc && gpg --recv-keys C6D76C329EBADE2FB9C458CFC5095986493B4AA0 && gpg --with-fingerprint --verify infection.phar.asc infection.phar
 
       - name: Run mutation tests
         run: ./infection.phar --min-msi=100 --min-covered-msi=100
