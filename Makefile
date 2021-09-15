@@ -6,7 +6,7 @@ help: ## display command overview
 
 install: ## install dependencies
 	composer update --no-interaction --no-progress --no-ansi
-	phive install --no-progress install --trust-gpg-keys C5095986493B4AA0
+	phive --no-progress install --trust-gpg-keys C5095986493B4AA0
 
 clean: ## cleanup installed dependencies and lock files
 	rm -rf logs
