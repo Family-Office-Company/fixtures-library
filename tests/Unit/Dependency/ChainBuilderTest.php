@@ -76,6 +76,20 @@ final class ChainBuilderTest extends TestCase
             [new Fixture5(), new Fixture5()],
         ];
 
+        yield [
+            [
+                Fixture4::class => [],
+                Fixture5::class => [
+                    Fixture3::class => [
+                        Fixture1::class => [
+                            Fixture2::class => [],
+                        ],
+                    ],
+                ],
+            ],
+            [new Fixture4(), new Fixture5()],
+        ];
+
         yield [[], []];
     }
 

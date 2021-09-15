@@ -42,6 +42,7 @@ final class ChainBuilder
             $fixtureClass = \get_class($fixture);
 
             if ($this->alreadyComputed($fixtureClass)) {
+                /* @infection-ignore-all */
                 continue;
             }
 
@@ -79,6 +80,7 @@ final class ChainBuilder
                 throw new CircularReferenceException('Circular reference detected!');
             }
 
+            /* @infection-ignore-all */
             $this->validator->validateDependencyClass($dependencyClass);
             $this->computed[] = $dependencyClass;
 

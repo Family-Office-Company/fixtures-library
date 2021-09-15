@@ -4,6 +4,7 @@ on: [ push ]
 
 jobs:
   phpstan:
+    name: PHPStan
     runs-on: ubuntu-latest
     steps:
       - name: Setup PHP
@@ -15,7 +16,7 @@ jobs:
         uses: actions/checkout@v2
 
       - name: Install dependencies
-        run: make install
+        run: composer update --no-interaction --no-progress --no-ansi
 
       - name: PHPStan Static Analysis
         run: vendor/bin/phpstan
@@ -33,7 +34,7 @@ jobs:
         uses: actions/checkout@v2
 
       - name: Install dependencies
-        run: make install
+        run: composer update --no-interaction --no-progress --no-ansi
 
       - name: Psalm
         run: vendor/bin/psalm
@@ -51,7 +52,7 @@ jobs:
         uses: actions/checkout@v2
 
       - name: Install dependencies
-        run: make install
+        run: composer update --no-interaction --no-progress --no-ansi
 
       - name: ECS
         run: ./vendor/bin/ecs check
@@ -69,7 +70,7 @@ jobs:
         uses: actions/checkout@v2
 
       - name: Install dependencies
-        run: make install
+        run: composer update --no-interaction --no-progress --no-ansi
 
       - name: composer normalize
         run: composer normalize --dry-run
@@ -102,7 +103,28 @@ jobs:
         uses: actions/checkout@v2
 
       - name: Install dependencies
-        run: make install
+        run: composer update --no-interaction --no-progress --no-ansi
 
       - name: Run tests
         run: vendor/bin/phpunit
+
+  infection:
+    name: Run mutation tests
+    runs-on: ubuntu-latest
+    steps:
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: 7.4
+
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Install dependencies
+        run: composer update --no-interaction --no-progress --no-ansi
+
+      - name: Download Infection
+        run: wget https://github.com/infection/infection/releases/download/0.25.0/infection.phar && chmod +x infection.phar
+
+      - name: Run mutation tests
+        run: ./infection.phar --min-msi=100 --min-covered-msi=100
