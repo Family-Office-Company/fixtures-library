@@ -6,7 +6,7 @@ namespace FamilyOffice\FixturesLibrary\Tests\Support;
 
 use FamilyOffice\FixturesLibrary\FixtureInterface;
 
-final class FixtureWithConstructorArgument implements FixtureInterface
+class FixtureWithConstructorArgument implements FixtureInterface
 {
     private string $foo;
 

@@ -6,7 +6,7 @@ namespace FamilyOffice\FixturesLibrary\Tests\Support;
 
 use FamilyOffice\FixturesLibrary\FixtureInterface;
 
-final class CircularReferenceFixture1 implements FixtureInterface
+class CircularReferenceFixture1 implements FixtureInterface
 {
     public function getDependencies(): array
     {

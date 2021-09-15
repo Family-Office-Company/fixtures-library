@@ -6,7 +6,7 @@ namespace FamilyOffice\FixturesLibrary\Tests\Support;
 
 use FamilyOffice\FixturesLibrary\FixtureInterface;
 
-final class Fixture5 implements FixtureInterface
+class Fixture5 implements FixtureInterface
 {
     public function getDependencies(): array
     {

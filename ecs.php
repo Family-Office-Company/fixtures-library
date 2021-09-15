@@ -27,7 +27,9 @@ return static function (ContainerConfigurator $containerConfigurator): void {
     $containerConfigurator
         ->parameters()
         ->set(Option::PATHS, [__FILE__, __DIR__ . '/example/', __DIR__ . '/src/', __DIR__ . '/tests/'])
-        ->set(Option::SKIP, [__DIR__ . '/tests/Support/Fixture1.php', __DIR__ . '/tests/Support/FixtureFactory.php']);
+        ->set(Option::SKIP, [
+            FinalClassFixer::class => [__DIR__ . '/tests/Support'],
+        ]);
 
     $containerConfigurator
         ->services()
