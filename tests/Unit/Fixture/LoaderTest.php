@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace FamilyOffice\FixturesLibrary\Tests\Unit;
+namespace FamilyOffice\FixturesLibrary\Tests\Unit\Fixture;
 
 use FamilyOffice\FixturesLibrary\Fixture\Loader;
 use FamilyOffice\FixturesLibrary\FixtureFactoryInterface;
