@@ -15,6 +15,8 @@ use FamilyOffice\FixturesLibrary\Tests\Support\Fixture2;
 use FamilyOffice\FixturesLibrary\Tests\Support\Fixture3;
 use FamilyOffice\FixturesLibrary\Tests\Support\Fixture4;
 use FamilyOffice\FixturesLibrary\Tests\Support\Fixture5;
+use FamilyOffice\FixturesLibrary\Tests\Support\FixtureDependentOnFixtureWithConstructorArgument;
+use FamilyOffice\FixturesLibrary\Tests\Support\FixtureFactory;
 use PHPUnit\Framework\TestCase;
 
 final class ChainBuilderTest extends TestCase
@@ -30,7 +32,7 @@ final class ChainBuilderTest extends TestCase
      */
     public function testBuild(array $expected, array $fixtures): void
     {
-        $chainBuilder = new ChainBuilder();
+        $chainBuilder = new ChainBuilder(new FixtureFactory());
 
         self::assertSame($expected, $chainBuilder->build($fixtures));
     }
@@ -103,7 +105,7 @@ final class ChainBuilderTest extends TestCase
      */
     public function testBuildCircularReferenceException(array $fixtures): void
     {
-        $chainBuilder = new ChainBuilder();
+        $chainBuilder = new ChainBuilder(new FixtureFactory());
 
         $this->expectException(CircularReferenceException::class);
 
@@ -114,5 +116,16 @@ final class ChainBuilderTest extends TestCase
     {
         yield [[new CircularReferenceFixture1()]];
         yield [[new CircularReferenceFixture1(), new CircularReferenceFixture2()]];
+    }
+
+    public function testDependencyWithConstructorArgumentCrashes(): void
+    {
+        $fixtureFactory = $this->getMockBuilder(FixtureFactory::class)->onlyMethods(['createInstance'])->getMock();
+        $fixtureFactory->expects($this->once())->method('createInstance');
+
+        $chainBuilder = new ChainBuilder($fixtureFactory);
+        $chainBuilder->build([new FixtureDependentOnFixtureWithConstructorArgument()]);
+
+        $this->assertTrue(true);
     }
 }

@@ -6,10 +6,12 @@ namespace FamilyOffice\FixturesLibrary\Dependency;
 
 use FamilyOffice\FixturesLibrary\Exception\CircularReferenceException;
 use FamilyOffice\FixturesLibrary\Exception\InvalidFixtureException;
+use FamilyOffice\FixturesLibrary\FixtureFactoryInterface;
 use FamilyOffice\FixturesLibrary\FixtureInterface;
 
 final class ChainBuilder
 {
+    private FixtureFactoryInterface $fixtureFactory;
     private Validator $validator;
 
     /**
@@ -17,8 +19,9 @@ final class ChainBuilder
      */
     private array $computed = [];
 
-    public function __construct()
+    public function __construct(FixtureFactoryInterface $fixtureFactory)
     {
+        $this->fixtureFactory = $fixtureFactory;
         $this->validator = new Validator();
     }
 
@@ -84,8 +87,7 @@ final class ChainBuilder
             $this->validator->validateDependencyClass($dependencyClass);
             $this->computed[] = $dependencyClass;
 
-            /** @var FixtureInterface $dependency */
-            $dependency = new $dependencyClass();
+            $dependency = $this->fixtureFactory->createInstance($dependencyClass);
             $dependencySubChain[$dependencyClass] = $this->buildDependencySubChain(
                 $dependency->getDependencies(),
                 $currentChain

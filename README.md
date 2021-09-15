@@ -72,29 +72,6 @@ class ExampleParentFixture implements FixtureInterface
 
 ### Building the dependency chain
 
-To be able to load all fixtures and their dependencies, the fixture loader needs a dependency chain to work with.
-
-Creating a dependency chain is fairly simple:
-
-```php
-<?php
-
-declare(strict_types=1);
-
-use FamilyOffice\FixturesLibrary\Dependency\ChainBuilder;
-use FamilyOffice\FixturesLibrary\Example\ExampleParentFixture;
-
-require __DIR__ . '/../vendor/autoload.php';
-
-$chainBuilder = new ChainBuilder();
-
-$fixtures = [new ExampleParentFixture(), /* ... */];
-
-$chainBuilder->build($fixtures);
-```
-
-### Loading the dependency chain
-
 #### Fixture Factory
 
 The fixture factory is essential for the procedure because it tells the fixture loader how to create instances of
@@ -124,13 +101,36 @@ class MyFixtureFactory implements FixtureFactoryInterface
 }
 ```
 
-We can now create a fixture factory object to pass it to the fixture loaders' constructor later on.
+We can now create a fixture factory object to pass it to the chain builders and fixture loaders constructor later on.
 
 ```php
 $fixtureFactory = new MyFixtureFactory();
 ```
 
-#### Fixture Loader
+#### Chain Builder
+
+To be able to load all fixtures and their dependencies, the fixture loader needs a dependency chain to work with.
+
+Creating a dependency chain is fairly simple:
+
+```php
+<?php
+
+declare(strict_types=1);
+
+use FamilyOffice\FixturesLibrary\Dependency\ChainBuilder;
+use FamilyOffice\FixturesLibrary\Example\ExampleParentFixture;
+
+require __DIR__ . '/../vendor/autoload.php';
+
+$fixtureFactory = new MyFixtureFactory();
+$chainBuilder = new ChainBuilder($fixtureFactory);
+
+$fixtures = [new ExampleParentFixture()/* ... */];
+$dependencyChain = $chainBuilder->build($fixtures);
+```
+
+### Loading the dependency chain
 
 The only thing left to do is loading the dependency chain using the fixture loader:
 
@@ -138,8 +138,6 @@ The only thing left to do is loading the dependency chain using the fixture load
 // (...)
 
 $dependencyChain = $chainBuilder->build($fixtures);
-
-$fixtureFactory = new MyFixtureFactory();
 
 $fixtureLoader = new Loader($fixtureFactory);
 $fixtureLoader->loadDependencyChain($dependencyChain);

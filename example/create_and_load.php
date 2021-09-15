@@ -9,13 +9,12 @@ use FamilyOffice\FixturesLibrary\Fixture\Loader;
 
 require __DIR__ . '/../vendor/autoload.php';
 
-$chainBuilder = new ChainBuilder();
+$fixtureFactory = new MyFixtureFactory();
+$chainBuilder = new ChainBuilder($fixtureFactory);
 
 $fixtures = [new ExampleParentFixture()/* ... */];
 
 $dependencyChain = $chainBuilder->build($fixtures);
-
-$fixtureFactory = new MyFixtureFactory();
 
 $fixtureLoader = new Loader($fixtureFactory);
 $fixtureLoader->loadDependencyChain($dependencyChain);

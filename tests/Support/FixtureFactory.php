@@ -7,7 +7,7 @@ namespace FamilyOffice\FixturesLibrary\Tests\Support;
 use FamilyOffice\FixturesLibrary\FixtureFactoryInterface;
 use FamilyOffice\FixturesLibrary\FixtureInterface;
 
-final class FixtureFactory implements FixtureFactoryInterface
+class FixtureFactory implements FixtureFactoryInterface
 {
     /**
      * @param class-string $fixtureClass
@@ -15,6 +15,6 @@ final class FixtureFactory implements FixtureFactoryInterface
     public function createInstance(string $fixtureClass): FixtureInterface
     {
         // will be mocked anyways
-        return new Fixture1();
+        return new $fixtureClass();
     }
 }

@@ -66,7 +66,7 @@ final class ValidatorTest extends TestCase
     /**
      * @throws InvalidFixtureException
      */
-    public function testFixtureWithConstructorArgumentThrowsError(): void
+    public function testFixtureWithConstructorArgumentCrashes(): void
     {
         $validator = new Validator();
         $validator->validateDependencyClass(FixtureWithConstructorArgument::class);
