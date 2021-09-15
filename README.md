@@ -2,8 +2,6 @@
     <img src=".github/project-logo.svg" width="512px">
 </h1>
 
-[![Infection MSI](https://badge.stryker-mutator.io/github.com/Family-Office-Company/fixture-library/main)](https://infection.github.io)
-
 # Fixtures Library
 
 An easy-to-use library for fixture and dependency loading.

@@ -12,10 +12,6 @@
     "text": "logs/infection.log",
     "summary": "logs/summary.log",
     "json": "logs/infection-log.json",
-    "perMutator": "logs/per-mutator.md",
-    "github": true,
-    "badge": {
-      "branch": "main"
-    }
+    "perMutator": "logs/per-mutator.md"
   }
 }
