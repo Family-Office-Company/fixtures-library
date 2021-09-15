@@ -28,7 +28,7 @@ final class ChainBuilder
     /**
      * @param FixtureInterface[] $fixtures
      *
-     * @return array<array>
+     * @return array<class-string, array>
      *
      * @throws InvalidFixtureException|CircularReferenceException
      */
