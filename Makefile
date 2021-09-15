@@ -36,6 +36,7 @@ test: ## run unit tests
 
 .PHONY: start
 start: ## start docker environment
+	docker pull dockware/flex:latest
 	docker-compose up -d
 
 .PHONY: stop
