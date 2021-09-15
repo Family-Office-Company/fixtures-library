@@ -15,7 +15,7 @@
     "perMutator": "logs/per-mutator.md",
     "github": true,
     "badge": {
-      "branch": "/^release-.*$/"
+      "branch": "main"
     }
   }
 }
