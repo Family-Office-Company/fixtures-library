@@ -101,7 +101,7 @@ class MyFixtureFactory implements FixtureFactoryInterface
 }
 ```
 
-We can now create a fixture factory object to pass it to the chain builders and fixture loaders constructor later on.
+We can now create a fixture factory object to pass it to the chain builders' and fixture loaders' constructor later on.
 
 ```php
 $fixtureFactory = new MyFixtureFactory();
