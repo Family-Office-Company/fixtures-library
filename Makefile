@@ -13,6 +13,7 @@ clean: ## cleanup installed dependencies and lock files
 	rm -rf tools
 	rm -rf vendor
 	rm -rf composer.lock
+	rm -rf .phpunit.result.cache
 
 .PHONY: cs
 cs: ## enforce code style
