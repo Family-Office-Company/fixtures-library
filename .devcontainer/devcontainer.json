@@ -24,7 +24,9 @@
 	// Add the IDs of extensions you want installed when the container is created.
 	"extensions": [
 		"bmewburn.vscode-intelephense-client",
-		"felixfbecker.php-debug"
+		"felixfbecker.php-debug",
+		"vscode-icons-team.vscode-icons",
+		"akamud.vscode-theme-onedark"
 	]
 
 	// Use 'forwardPorts' to make a list of ports inside the container available locally.

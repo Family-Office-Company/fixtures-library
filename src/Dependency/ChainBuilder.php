@@ -28,7 +28,7 @@ final class ChainBuilder
     /**
      * @param FixtureInterface[] $fixtures
      *
-     * @return array<class-string, array>
+     * @psalm-return array<class-string, array>
      *
      * @throws InvalidFixtureException|CircularReferenceException
      */
@@ -63,10 +63,10 @@ final class ChainBuilder
     }
 
     /**
-     * @param class-string[] $dependencyClasses
-     * @param class-string[] $currentChain
+     * @psalm-param class-string[] $dependencyClasses
+     * @psalm-param class-string[] $currentChain
      *
-     * @return array<array>
+     * @psalm-return array<class-string, array>
      *
      * @throws InvalidFixtureException|CircularReferenceException
      */

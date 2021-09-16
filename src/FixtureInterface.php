@@ -7,7 +7,7 @@ namespace FamilyOffice\FixturesLibrary;
 interface FixtureInterface
 {
     /**
-     * @return class-string[]
+     * @psalm-return class-string[]
      */
     public function getDependencies(): array;
 
