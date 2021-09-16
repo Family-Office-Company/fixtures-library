@@ -7,4 +7,4 @@ RUN wget -O phive.phar https://phar.io/releases/phive.phar && \
     chmod +x phive.phar && \
     sudo mv phive.phar /usr/local/bin/phive
 
-WORKDIR /code
+WORKDIR /workspace

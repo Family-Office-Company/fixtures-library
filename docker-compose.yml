@@ -3,6 +3,6 @@ services:
     container_name: fixtures_library_devcontainer
     build: .
     volumes:
-      - ./:/code
+      - ./:/workspace:cached
     environment:
       - XDEBUG_ENABLED=1
