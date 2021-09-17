@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<files psalm-version="4.10.0@916b098b008f6de4543892b1e0651c1c3b92cbfa">
+  <file src="tests/Support/FixtureFactory.php">
+    <LessSpecificReturnStatement occurrences="1">
+      <code>new $fixtureClass()</code>
+    </LessSpecificReturnStatement>
+    <MoreSpecificReturnType occurrences="1">
+      <code>FixtureInterface</code>
+    </MoreSpecificReturnType>
+  </file>
+  <file src="tests/Support/FixtureWithConstructorArgument.php">
+    <LessSpecificReturnStatement occurrences="1">
+      <code>[$this-&gt;foo]</code>
+    </LessSpecificReturnStatement>
+    <MoreSpecificReturnType occurrences="1">
+      <code>array</code>
+    </MoreSpecificReturnType>
+  </file>
+  <file src="tests/Unit/Dependency/ChainBuilderTest.php">
+    <InvalidArgument occurrences="1">
+      <code>[new InvalidFixture()]</code>
+    </InvalidArgument>
+    <PossiblyInvalidArgument occurrences="1">
+      <code>$fixtureFactory</code>
+    </PossiblyInvalidArgument>
+    <PossiblyUndefinedMethod occurrences="1">
+      <code>expects</code>
+    </PossiblyUndefinedMethod>
+  </file>
+</files>

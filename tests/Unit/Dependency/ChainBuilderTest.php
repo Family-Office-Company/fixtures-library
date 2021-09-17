@@ -17,6 +17,12 @@ use FamilyOffice\FixturesLibrary\Tests\Support\Fixture4;
 use FamilyOffice\FixturesLibrary\Tests\Support\Fixture5;
 use FamilyOffice\FixturesLibrary\Tests\Support\FixtureDependentOnFixtureWithConstructorArgument;
 use FamilyOffice\FixturesLibrary\Tests\Support\FixtureFactory;
+use FamilyOffice\FixturesLibrary\Tests\Support\InvalidFixture;
+use FamilyOffice\FixturesLibrary\Tests\Support\NestedCircularReferenceFixture1;
+use FamilyOffice\FixturesLibrary\Tests\Support\NestedCircularReferenceFixture2;
+use FamilyOffice\FixturesLibrary\Tests\Support\NestedCircularReferenceFixture3;
+use FamilyOffice\FixturesLibrary\Tests\Support\SelfDependentFixture;
+use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
 final class ChainBuilderTest extends TestCase
@@ -116,16 +122,42 @@ final class ChainBuilderTest extends TestCase
     {
         yield [[new CircularReferenceFixture1()]];
         yield [[new CircularReferenceFixture1(), new CircularReferenceFixture2()]];
+        yield [[new CircularReferenceFixture2()]];
+        yield [[new NestedCircularReferenceFixture1()]];
+        yield [[new NestedCircularReferenceFixture2()]];
+        yield [[new NestedCircularReferenceFixture3()]];
+        yield [[new SelfDependentFixture()]];
     }
 
     public function testDependencyWithConstructorArgumentCrashes(): void
     {
+        /** @var FixtureFactory|MockObject $fixtureFactory */
         $fixtureFactory = $this->getMockBuilder(FixtureFactory::class)->onlyMethods(['createInstance'])->getMock();
-        $fixtureFactory->expects($this->once())->method('createInstance');
+        $fixtureFactory->expects(self::once())->method('createInstance');
 
         $chainBuilder = new ChainBuilder($fixtureFactory);
         $chainBuilder->build([new FixtureDependentOnFixtureWithConstructorArgument()]);
 
-        $this->assertTrue(true);
+        self::assertTrue(true);
+    }
+
+    public function testFixturesNotValidatedOnTopLevel(): void
+    {
+        $fixtureFactory = new FixtureFactory();
+        $chainBuilder = new ChainBuilder($fixtureFactory);
+
+        $this->expectException(InvalidFixtureException::class);
+
+        $chainBuilder->build([new InvalidFixture()]);
+    }
+
+    public function testNestedCircularReferenceNotDetected(): void
+    {
+        $fixtureFactory = new FixtureFactory();
+        $chainBuilder = new ChainBuilder($fixtureFactory);
+
+        $this->expectException(CircularReferenceException::class);
+
+        $chainBuilder->build([new NestedCircularReferenceFixture1()]);
     }
 }

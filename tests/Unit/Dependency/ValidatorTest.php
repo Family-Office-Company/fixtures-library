@@ -70,6 +70,6 @@ final class ValidatorTest extends TestCase
     {
         $validator = new Validator();
         $validator->validateDependencyClass(FixtureWithConstructorArgument::class);
-        $this->assertTrue(true);
+        self::assertTrue(true);
     }
 }

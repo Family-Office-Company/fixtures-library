@@ -34,7 +34,7 @@ final class LoaderTest extends TestCase
         $fixtureLoader = new Loader($fixtureFactory);
         $fixtureLoader->loadDependencyChain($dependencyChain);
 
-        $this->assertTrue(true);
+        self::assertTrue(true);
     }
 
     public function dataProviderTestBuildAndLoadDependencyChain(): iterable

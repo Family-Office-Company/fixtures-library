@@ -49,11 +49,17 @@ final class ChainBuilder
                 continue;
             }
 
-            // saving current chain for circular reference detection
-            $currentChain = [$fixtureClass];
+            /* @infection-ignore-all */
+            $this->validator->validateDependencyClass($fixtureClass);
+
+            // saving scoped chain for circular reference detection
+            // infection-ignored because not adding class to scoped chain here
+            // would result in a superfluous depth level
+            /* @infection-ignore-all */
+            $scopedChain = [$fixtureClass];
             $dependencyChain[$fixtureClass] = $this->buildDependencySubChain(
                 $fixture->getDependencies(),
-                $currentChain
+                $scopedChain
             );
 
             $this->computed[] = $fixtureClass;
@@ -64,13 +70,13 @@ final class ChainBuilder
 
     /**
      * @psalm-param class-string[] $dependencyClasses
-     * @psalm-param class-string[] $currentChain
+     * @psalm-param class-string[] $scopedChain
      *
      * @psalm-return array<class-string, array>
      *
      * @throws InvalidFixtureException|CircularReferenceException
      */
-    private function buildDependencySubChain(array $dependencyClasses, array $currentChain): array
+    private function buildDependencySubChain(array $dependencyClasses, array $scopedChain): array
     {
         $dependencySubChain = [];
 
@@ -79,19 +85,21 @@ final class ChainBuilder
                 continue;
             }
 
-            if (\in_array($dependencyClass, $currentChain, true)) {
+            if (\in_array($dependencyClass, $scopedChain, true)) {
                 throw new CircularReferenceException('Circular reference detected!');
             }
 
             /* @infection-ignore-all */
             $this->validator->validateDependencyClass($dependencyClass);
-            $this->computed[] = $dependencyClass;
+            $scopedChain[] = $dependencyClass;
 
             $dependency = $this->fixtureFactory->createInstance($dependencyClass);
             $dependencySubChain[$dependencyClass] = $this->buildDependencySubChain(
                 $dependency->getDependencies(),
-                $currentChain
+                $scopedChain
             );
+
+            $this->computed[] = $dependencyClass;
         }
 
         return $dependencySubChain;
