@@ -9,8 +9,6 @@
 	"extensions": [
 		"bmewburn.vscode-intelephense-client",
 		"felixfbecker.php-debug",
-		"vscode-icons-team.vscode-icons",
-		"akamud.vscode-theme-onedark",
 		"kasik96.latte",
 		"ms-azuretools.vscode-docker"
 	]
