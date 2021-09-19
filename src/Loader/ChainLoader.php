@@ -2,17 +2,26 @@
 
 declare(strict_types=1);
 
-namespace FamilyOffice\FixturesLibrary\Fixture;
+namespace FamilyOffice\FixturesLibrary\Loader;
 
+use FamilyOffice\FixturesLibrary\Factory\DefaultFixtureFactory;
 use FamilyOffice\FixturesLibrary\FixtureFactoryInterface;
+use FamilyOffice\FixturesLibrary\FixtureLoaderInterface;
 
-final class Loader
+final class ChainLoader
 {
     private FixtureFactoryInterface $fixtureFactory;
+    private FixtureLoaderInterface $fixtureLoader;
 
-    public function __construct(FixtureFactoryInterface $fixtureFactory)
+    public function __construct(FixtureFactoryInterface $fixtureFactory, FixtureLoaderInterface $fixtureLoader)
     {
         $this->fixtureFactory = $fixtureFactory;
+        $this->fixtureLoader = $fixtureLoader;
+    }
+
+    public static function createDefault(): self
+    {
+        return new self(new DefaultFixtureFactory(), new DefaultFixtureLoader());
     }
 
     /**
@@ -24,7 +33,7 @@ final class Loader
         foreach ($dependencyChain as $parentFixture => $dependencySubChain) {
             $this->loadDependencyChain($dependencySubChain);
             $instance = $this->fixtureFactory->createInstance($parentFixture);
-            $instance->load();
+            $this->fixtureLoader->loadFixture($instance);
         }
     }
 }

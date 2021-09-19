@@ -18,6 +18,7 @@ clean: ## cleanup installed dependencies and lock files
 .PHONY: cs
 cs: ## enforce code style
 	vendor/bin/ecs check --fix
+	vendor/bin/ecs check-markdown README.md docs/advanced.md --fix
 	composer normalize
 
 .PHONY: analysis

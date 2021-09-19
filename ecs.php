@@ -5,6 +5,7 @@ declare(strict_types=1);
 use PhpCsFixer\Fixer\CastNotation\CastSpacesFixer;
 use PhpCsFixer\Fixer\ClassNotation\FinalClassFixer;
 use PhpCsFixer\Fixer\Operator\ConcatSpaceFixer;
+use PhpCsFixer\Fixer\PhpUnit\PhpUnitStrictFixer;
 use PhpCsFixer\Fixer\Strict\DeclareStrictTypesFixer;
 use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
 use Symplify\CodingStandard\Fixer\LineLength\LineLengthFixer;
@@ -29,6 +30,12 @@ return static function (ContainerConfigurator $containerConfigurator): void {
         ->set(Option::PATHS, [__FILE__, __DIR__ . '/example/', __DIR__ . '/src/', __DIR__ . '/tests/'])
         ->set(Option::SKIP, [
             FinalClassFixer::class => [__DIR__ . '/tests/Support'],
+            PhpUnitStrictFixer::class => [
+                /* @see \FamilyOffice\FixturesLibrary\Tests\Unit\Dependency\ChainBuilderTest::testCreateDefault() */
+                __DIR__ . '/tests/Unit/Dependency/ChainBuilderTest.php',
+                /* @see \FamilyOffice\FixturesLibrary\Tests\Unit\Loader\ChainLoaderTest::testCreateDefault() */
+                __DIR__ . '/tests/Unit/Loader/ChainLoaderTest.php',
+            ],
         ]);
 
     $containerConfigurator

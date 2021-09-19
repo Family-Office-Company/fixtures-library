@@ -2,19 +2,18 @@
 
 declare(strict_types=1);
 
-namespace FamilyOffice\FixturesLibrary\Example;
+namespace FamilyOffice\FixturesLibrary\Example\Basic\Fixtures;
 
 use FamilyOffice\FixturesLibrary\FixtureInterface;
 
-final class ExampleParentFixture implements FixtureInterface
+final class ElephantFixture implements FixtureInterface
 {
     public function getDependencies(): array
     {
-        return [ExampleChildFixture::class];
+        return [EarFixture::class];
     }
 
     public function load(): void
     {
-        echo 'parent!' . PHP_EOL;
     }
 }

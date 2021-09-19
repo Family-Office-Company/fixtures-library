@@ -3,12 +3,12 @@ parameters:
 		-
 			message: "#^Call to static method PHPUnit\\\\Framework\\\\Assert\\:\\:assertTrue\\(\\) with true will always evaluate to true\\.$#"
 			count: 1
-			path: tests/Integration/LoaderTest.php
+			path: tests/Integration/IntegratedDefaultChainLoaderTest.php
 
 		-
-			message: "#^Method FamilyOffice\\\\FixturesLibrary\\\\Tests\\\\Integration\\\\LoaderTest\\:\\:dataProviderTestBuildAndLoadDependencyChain\\(\\) return type has no value type specified in iterable type iterable\\.$#"
+			message: "#^Method FamilyOffice\\\\FixturesLibrary\\\\Tests\\\\Integration\\\\IntegratedDefaultChainLoaderTest\\:\\:dataProviderTestBuildAndLoadDependencyChain\\(\\) return type has no value type specified in iterable type iterable\\.$#"
 			count: 1
-			path: tests/Integration/LoaderTest.php
+			path: tests/Integration/IntegratedDefaultChainLoaderTest.php
 
 		-
 			message: "#^Class FamilyOffice\\\\FixturesLibrary\\\\Tests\\\\Support\\\\CircularReferenceFixture1 is neither abstract nor final\\.$#"
@@ -46,6 +46,11 @@ parameters:
 			path: tests/Support/Fixture5.php
 
 		-
+			message: "#^Class FamilyOffice\\\\FixturesLibrary\\\\Tests\\\\Support\\\\FixtureComputer is neither abstract nor final\\.$#"
+			count: 1
+			path: tests/Support/FixtureComputer.php
+
+		-
 			message: "#^Class FamilyOffice\\\\FixturesLibrary\\\\Tests\\\\Support\\\\FixtureDependentOnFixtureWithConstructorArgument is neither abstract nor final\\.$#"
 			count: 1
 			path: tests/Support/FixtureDependentOnFixtureWithConstructorArgument.php
@@ -64,6 +69,11 @@ parameters:
 			message: "#^Method FamilyOffice\\\\FixturesLibrary\\\\Tests\\\\Support\\\\FixtureWithConstructorArgument\\:\\:getDependencies\\(\\) should return array\\<class\\-string\\> but returns array\\<int, string\\>\\.$#"
 			count: 1
 			path: tests/Support/FixtureWithConstructorArgument.php
+
+		-
+			message: "#^Class FamilyOffice\\\\FixturesLibrary\\\\Tests\\\\Support\\\\InvalidDependencyFixture is neither abstract nor final\\.$#"
+			count: 1
+			path: tests/Support/InvalidDependencyFixture.php
 
 		-
 			message: "#^Class FamilyOffice\\\\FixturesLibrary\\\\Tests\\\\Support\\\\InvalidFixture is neither abstract nor final\\.$#"
@@ -89,6 +99,11 @@ parameters:
 			message: "#^Class FamilyOffice\\\\FixturesLibrary\\\\Tests\\\\Support\\\\SelfDependentFixture is neither abstract nor final\\.$#"
 			count: 1
 			path: tests/Support/SelfDependentFixture.php
+
+		-
+			message: "#^Class FamilyOffice\\\\FixturesLibrary\\\\Tests\\\\Support\\\\UnrelatedFixture is neither abstract nor final\\.$#"
+			count: 1
+			path: tests/Support/UnrelatedFixture.php
 
 		-
 			message: "#^Call to static method PHPUnit\\\\Framework\\\\Assert\\:\\:assertTrue\\(\\) with true will always evaluate to true\\.$#"
@@ -124,3 +139,4 @@ parameters:
 			message: "#^Method FamilyOffice\\\\FixturesLibrary\\\\Tests\\\\Unit\\\\Dependency\\\\ValidatorTest\\:\\:dataProviderTestValidDependencyClasses\\(\\) return type has no value type specified in iterable type iterable\\.$#"
 			count: 1
 			path: tests/Unit/Dependency/ValidatorTest.php
+

@@ -57,6 +57,24 @@ jobs:
       - name: ECS
         run: ./vendor/bin/ecs check
 
+  ecs_markdown:
+    name: Easy coding standard for Markdown
+    runs-on: ubuntu-latest
+    steps:
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: 7.4
+
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Install dependencies
+        run: composer update --no-interaction --no-progress --no-ansi
+
+      - name: ECS
+        run: ./vendor/bin/ecs check-markdown README.md docs/advanced.md
+
   composer_normalize:
     name: composer.json normalizer
     runs-on: ubuntu-latest

@@ -2,19 +2,18 @@
 
 declare(strict_types=1);
 
-namespace FamilyOffice\FixturesLibrary\Example;
+namespace FamilyOffice\FixturesLibrary\Tests\Support;
 
 use FamilyOffice\FixturesLibrary\FixtureInterface;
 
-final class ExampleChildFixture implements FixtureInterface
+class InvalidDependencyFixture implements FixtureInterface
 {
     public function getDependencies(): array
     {
-        return [];
+        return [InvalidFixture::class];
     }
 
     public function load(): void
     {
-        echo 'child!' . PHP_EOL;
     }
 }

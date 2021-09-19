@@ -4,9 +4,12 @@ declare(strict_types=1);
 
 namespace FamilyOffice\FixturesLibrary\Tests\Unit\Dependency;
 
+use FamilyOffice\FixturesLibrary\Computer\DefaultFixtureComputer;
+use FamilyOffice\FixturesLibrary\Computer\OnFlyFixtureComputer;
 use FamilyOffice\FixturesLibrary\Dependency\ChainBuilder;
 use FamilyOffice\FixturesLibrary\Exception\CircularReferenceException;
 use FamilyOffice\FixturesLibrary\Exception\InvalidFixtureException;
+use FamilyOffice\FixturesLibrary\Factory\DefaultFixtureFactory;
 use FamilyOffice\FixturesLibrary\FixtureInterface;
 use FamilyOffice\FixturesLibrary\Tests\Support\CircularReferenceFixture1;
 use FamilyOffice\FixturesLibrary\Tests\Support\CircularReferenceFixture2;
@@ -15,14 +18,16 @@ use FamilyOffice\FixturesLibrary\Tests\Support\Fixture2;
 use FamilyOffice\FixturesLibrary\Tests\Support\Fixture3;
 use FamilyOffice\FixturesLibrary\Tests\Support\Fixture4;
 use FamilyOffice\FixturesLibrary\Tests\Support\Fixture5;
+use FamilyOffice\FixturesLibrary\Tests\Support\FixtureComputer;
 use FamilyOffice\FixturesLibrary\Tests\Support\FixtureDependentOnFixtureWithConstructorArgument;
 use FamilyOffice\FixturesLibrary\Tests\Support\FixtureFactory;
+use FamilyOffice\FixturesLibrary\Tests\Support\InvalidDependencyFixture;
 use FamilyOffice\FixturesLibrary\Tests\Support\InvalidFixture;
 use FamilyOffice\FixturesLibrary\Tests\Support\NestedCircularReferenceFixture1;
 use FamilyOffice\FixturesLibrary\Tests\Support\NestedCircularReferenceFixture2;
 use FamilyOffice\FixturesLibrary\Tests\Support\NestedCircularReferenceFixture3;
 use FamilyOffice\FixturesLibrary\Tests\Support\SelfDependentFixture;
-use PHPUnit\Framework\MockObject\MockObject;
+use FamilyOffice\FixturesLibrary\Tests\Support\UnrelatedFixture;
 use PHPUnit\Framework\TestCase;
 
 final class ChainBuilderTest extends TestCase
@@ -39,7 +44,7 @@ final class ChainBuilderTest extends TestCase
      */
     public function testBuild(array $expected, array $fixtures): void
     {
-        $chainBuilder = new ChainBuilder(new FixtureFactory());
+        $chainBuilder = ChainBuilder::createDefault();
 
         self::assertSame($expected, $chainBuilder->build($fixtures));
     }
@@ -99,6 +104,18 @@ final class ChainBuilderTest extends TestCase
             [new Fixture4(), new Fixture5()],
         ];
 
+        yield [
+            [
+                Fixture1::class => [
+                    Fixture2::class => [
+                        Fixture4::class => [],
+                    ],
+                ],
+                UnrelatedFixture::class => [],
+            ],
+            [new Fixture1(), new Fixture1(), new UnrelatedFixture()],
+        ];
+
         yield [[], []];
     }
 
@@ -112,7 +129,7 @@ final class ChainBuilderTest extends TestCase
      */
     public function testBuildCircularReferenceException(array $fixtures): void
     {
-        $chainBuilder = new ChainBuilder(new FixtureFactory());
+        $chainBuilder = ChainBuilder::createDefault();
 
         $this->expectException(CircularReferenceException::class);
 
@@ -132,11 +149,10 @@ final class ChainBuilderTest extends TestCase
 
     public function testDependencyWithConstructorArgumentCrashes(): void
     {
-        /** @var FixtureFactory|MockObject $fixtureFactory */
         $fixtureFactory = $this->getMockBuilder(FixtureFactory::class)->onlyMethods(['createInstance'])->getMock();
         $fixtureFactory->expects(self::once())->method('createInstance');
 
-        $chainBuilder = new ChainBuilder($fixtureFactory);
+        $chainBuilder = new ChainBuilder($fixtureFactory, new DefaultFixtureComputer());
         $chainBuilder->build([new FixtureDependentOnFixtureWithConstructorArgument()]);
 
         self::assertTrue(true);
@@ -144,8 +160,7 @@ final class ChainBuilderTest extends TestCase
 
     public function testFixturesNotValidatedOnTopLevel(): void
     {
-        $fixtureFactory = new FixtureFactory();
-        $chainBuilder = new ChainBuilder($fixtureFactory);
+        $chainBuilder = ChainBuilder::createDefault();
 
         $this->expectException(InvalidFixtureException::class);
 
@@ -154,11 +169,55 @@ final class ChainBuilderTest extends TestCase
 
     public function testNestedCircularReferenceNotDetected(): void
     {
-        $fixtureFactory = new FixtureFactory();
-        $chainBuilder = new ChainBuilder($fixtureFactory);
+        $chainBuilder = ChainBuilder::createDefault();
 
         $this->expectException(CircularReferenceException::class);
 
         $chainBuilder->build([new NestedCircularReferenceFixture1()]);
+    }
+
+    public function testCreateDefault(): void
+    {
+        $expected = new ChainBuilder(new DefaultFixtureFactory(), new DefaultFixtureComputer());
+        $actual = ChainBuilder::createDefault();
+
+        self::assertEquals($expected, $actual);
+    }
+
+    public function testCreateQuickLoader(): void
+    {
+        $expected = new ChainBuilder(new DefaultFixtureFactory(), new OnFlyFixtureComputer());
+        $actual = ChainBuilder::createQuickLoader();
+
+        self::assertEquals($expected, $actual);
+    }
+
+    public function testComputeFixtureCalled(): void
+    {
+        $fixtureComputer = $this->getMockBuilder(FixtureComputer::class)->onlyMethods(['computeFixture'])->getMock();
+        $fixtureComputer->expects(self::exactly(3))->method('computeFixture');
+
+        $chainBuilder = new ChainBuilder(new FixtureFactory(), $fixtureComputer);
+        $chainBuilder->build([new Fixture1()]);
+    }
+
+    public function testInvalidDependency(): void
+    {
+        $chainBuilder = new ChainBuilder(new FixtureFactory(), new FixtureComputer());
+
+        $this->expectException(InvalidFixtureException::class);
+
+        $chainBuilder->build([new InvalidDependencyFixture()]);
+    }
+
+    public function testCircularReferenceDetectedOnFirstLevel(): void
+    {
+        $fixtureFactory = $this->getMockBuilder(FixtureFactory::class)->onlyMethods(['createInstance'])->getMock();
+        $fixtureFactory->expects(self::exactly(0))->method('createInstance');
+
+        $this->expectException(CircularReferenceException::class);
+
+        $chainBuilder = new ChainBuilder($fixtureFactory, new FixtureComputer());
+        $chainBuilder->build([new SelfDependentFixture()]);
     }
 }
