@@ -10,6 +10,7 @@
 		"bmewburn.vscode-intelephense-client",
 		"felixfbecker.php-debug",
 		"kasik96.latte",
-		"ms-azuretools.vscode-docker"
+		"ms-azuretools.vscode-docker",
+		"editorconfig.editorconfig"
 	]
 }

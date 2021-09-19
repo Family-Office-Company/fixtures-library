@@ -1,0 +1,6 @@
+# top-most EditorConfig file
+root = true
+
+[*.{yml,yaml,json}]
+indent_style = spaces
+indent_size = 2
