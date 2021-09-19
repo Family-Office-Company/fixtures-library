@@ -7,7 +7,7 @@ namespace FamilyOffice\FixturesLibrary;
 interface FixtureFactoryInterface
 {
     /**
-     * @param class-string $fixtureClass
+     * @psalm-param class-string $fixtureClass
      */
     public function createInstance(string $fixtureClass): FixtureInterface;
 }

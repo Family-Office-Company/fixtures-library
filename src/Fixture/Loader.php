@@ -16,11 +16,11 @@ final class Loader
     }
 
     /**
-     * @param array<class-string, array> $dependencyChain
+     * @psalm-param array<class-string, array> $dependencyChain
      */
     public function loadDependencyChain(array $dependencyChain): void
     {
-        /** @var array<class-string, array> $dependencySubChain */
+        /** @psalm-var array<class-string, array> $dependencySubChain */
         foreach ($dependencyChain as $parentFixture => $dependencySubChain) {
             $this->loadDependencyChain($dependencySubChain);
             $instance = $this->fixtureFactory->createInstance($parentFixture);

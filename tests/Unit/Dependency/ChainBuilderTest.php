@@ -30,7 +30,7 @@ final class ChainBuilderTest extends TestCase
     /**
      * @dataProvider dataProviderTestBuild
      *
-     * @param array<class-string, array> $expected
+     * @psalm-param array<class-string, array> $expected
      * @param FixtureInterface[]         $fixtures
      *
      * @throws CircularReferenceException

@@ -19,7 +19,7 @@ final class ValidatorTest extends TestCase
     /**
      * @dataProvider dataProviderTestValidDependencyClasses
      *
-     * @param class-string $dependencyClass
+     * @psalm-param class-string $dependencyClass
      *
      * @throws InvalidFixtureException
      */
@@ -43,7 +43,7 @@ final class ValidatorTest extends TestCase
     /**
      * @dataProvider dataProviderTestInvalidDependencyClasses
      *
-     * @param class-string $dependencyClass
+     * @psalm-param class-string $dependencyClass
      *
      * @throws InvalidFixtureException
      */
