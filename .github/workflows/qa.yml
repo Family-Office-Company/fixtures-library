@@ -139,7 +139,7 @@ jobs:
         run: composer validate
 
   phpunit:
-    name: Run PHPUnit tests
+    name: Unit & integration tests
     runs-on: ubuntu-latest
     strategy:
       matrix:
@@ -158,17 +158,17 @@ jobs:
       - name: Install dependencies
         run: composer update --no-interaction --no-progress --no-ansi
 
-      - name: Run tests
+      - name: PHPUnit
         run: vendor/bin/phpunit
 
   infection:
-    name: Run mutation tests
+    name: Mutation tests
     runs-on: ubuntu-latest
     strategy:
       matrix:
         php:
-          - 7.4
-          - 8.0
+          - "7.4"
+          - "8.0"
     steps:
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
@@ -184,5 +184,5 @@ jobs:
       - name: Download Infection
         run: wget https://github.com/infection/infection/releases/download/0.25.0/infection.phar && chmod +x infection.phar
 
-      - name: Run mutation tests
+      - name: Infection
         run: ./infection.phar --min-msi=100 --min-covered-msi=100
