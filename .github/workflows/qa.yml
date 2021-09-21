@@ -6,11 +6,16 @@ jobs:
   phpstan:
     name: PHPStan
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        php:
+          - 7.4
+          - 8.0
     steps:
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
         with:
-          php-version: 7.4
+          php-version: ${{ matrix.php }}
 
       - name: Checkout code
         uses: actions/checkout@v2
@@ -24,11 +29,16 @@ jobs:
   psalm:
     name: Psalm
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        php:
+          - 7.4
+          - 8.0
     steps:
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
         with:
-          php-version: 7.4
+          php-version: ${{ matrix.php }}
 
       - name: Checkout code
         uses: actions/checkout@v2
@@ -42,11 +52,16 @@ jobs:
   ecs:
     name: Easy coding standard
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        php:
+          - 7.4
+          - 8.0
     steps:
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
         with:
-          php-version: 7.4
+          php-version: ${{ matrix.php }}
 
       - name: Checkout code
         uses: actions/checkout@v2
@@ -60,11 +75,16 @@ jobs:
   ecs_markdown:
     name: Easy coding standard for Markdown
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        php:
+          - 7.4
+          - 8.0
     steps:
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
         with:
-          php-version: 7.4
+          php-version: ${{ matrix.php }}
 
       - name: Checkout code
         uses: actions/checkout@v2
@@ -78,11 +98,16 @@ jobs:
   composer_normalize:
     name: composer.json normalizer
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        php:
+          - 7.4
+          - 8.0
     steps:
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
         with:
-          php-version: 7.4
+          php-version: ${{ matrix.php }}
 
       - name: Checkout code
         uses: actions/checkout@v2
@@ -96,11 +121,16 @@ jobs:
   composer_validate:
     name: composer.json validation
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        php:
+          - 7.4
+          - 8.0
     steps:
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
         with:
-          php-version: 7.4
+          php-version: ${{ matrix.php }}
 
       - name: Checkout code
         uses: actions/checkout@v2
@@ -109,13 +139,18 @@ jobs:
         run: composer validate
 
   phpunit:
-    name: Run PHPUnit tests
+    name: Unit & integration tests
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        php:
+          - 7.4
+          - 8.0
     steps:
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
         with:
-          php-version: 7.4
+          php-version: ${{ matrix.php }}
 
       - name: Checkout code
         uses: actions/checkout@v2
@@ -123,17 +158,22 @@ jobs:
       - name: Install dependencies
         run: composer update --no-interaction --no-progress --no-ansi
 
-      - name: Run tests
+      - name: PHPUnit
         run: vendor/bin/phpunit
 
   infection:
-    name: Run mutation tests
+    name: Mutation tests
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        php:
+          - "7.4"
+          - "8.0"
     steps:
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
         with:
-          php-version: 7.4
+          php-version: ${{ matrix.php }}
 
       - name: Checkout code
         uses: actions/checkout@v2
@@ -144,5 +184,5 @@ jobs:
       - name: Download Infection
         run: wget https://github.com/infection/infection/releases/download/0.25.0/infection.phar && chmod +x infection.phar
 
-      - name: Run mutation tests
+      - name: Infection
         run: ./infection.phar --min-msi=100 --min-covered-msi=100
