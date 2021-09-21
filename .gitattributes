@@ -1,6 +1,7 @@
 /.devcontainer/         export-ignore
 /.github/               export-ignore
 /.phive/                export-ignore
+/docs/                  export-ignore
 /example/               export-ignore
 /tests/                 export-ignore
 /.dockerignore          export-ignore
