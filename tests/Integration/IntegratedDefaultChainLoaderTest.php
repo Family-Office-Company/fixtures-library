@@ -7,17 +7,16 @@ namespace FamilyOffice\FixturesLibrary\Tests\Integration;
 use FamilyOffice\FixturesLibrary\Dependency\ChainBuilder;
 use FamilyOffice\FixturesLibrary\Exception\CircularReferenceException;
 use FamilyOffice\FixturesLibrary\Exception\InvalidFixtureException;
-use FamilyOffice\FixturesLibrary\Fixture\Loader;
 use FamilyOffice\FixturesLibrary\FixtureInterface;
+use FamilyOffice\FixturesLibrary\Loader\ChainLoader;
 use FamilyOffice\FixturesLibrary\Tests\Support\Fixture1;
 use FamilyOffice\FixturesLibrary\Tests\Support\Fixture2;
 use FamilyOffice\FixturesLibrary\Tests\Support\Fixture3;
 use FamilyOffice\FixturesLibrary\Tests\Support\Fixture4;
 use FamilyOffice\FixturesLibrary\Tests\Support\Fixture5;
-use FamilyOffice\FixturesLibrary\Tests\Support\FixtureFactory;
 use PHPUnit\Framework\TestCase;
 
-final class LoaderTest extends TestCase
+final class IntegratedDefaultChainLoaderTest extends TestCase
 {
     /**
      * @dataProvider dataProviderTestBuildAndLoadDependencyChain
@@ -27,11 +26,10 @@ final class LoaderTest extends TestCase
      */
     public function testBuildAndLoadDependencyChain(FixtureInterface $fixture): void
     {
-        $fixtureFactory = new FixtureFactory();
-        $chainBuilder = new ChainBuilder($fixtureFactory);
+        $chainBuilder = ChainBuilder::createDefault();
         $dependencyChain = $chainBuilder->build([$fixture]);
 
-        $fixtureLoader = new Loader($fixtureFactory);
+        $fixtureLoader = ChainLoader::createDefault();
         $fixtureLoader->loadDependencyChain($dependencyChain);
 
         self::assertTrue(true);

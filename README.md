@@ -6,28 +6,24 @@
 
 An easy-to-use library for fixture and dependency loading.
 
-## Usage
-
-### Installation
+## Installation
 
 ```shell
 composer require family-office/fixtures-library
 ```
 
+## Usage
+
 ### Creating a fixture
 
-Fixtures are regular classes implementing the `FixtureInterface`.
+Fixtures are regular classes implementing the [`FixtureInterface`](src/FixtureInterface.php).
 
 ```php
-<?php
-
-declare(strict_types=1);
-
-namespace FamilyOffice\FixturesLibrary\Example;
+namespace FamilyOffice\FixturesLibrary\Example\Basic\Fixtures;
 
 use FamilyOffice\FixturesLibrary\FixtureInterface;
 
-class ExampleParentFixture implements FixtureInterface
+final class EarFixture implements FixtureInterface
 {
     public function getDependencies(): array
     {
@@ -36,7 +32,7 @@ class ExampleParentFixture implements FixtureInterface
 
     public function load(): void
     {
-        // TODO: Implement load() method.
+        // todo: implement data loading
     }
 }
 ```
@@ -48,100 +44,47 @@ Sometimes, fixtures need to depend on each other because they must be executed i
 All dependencies a fixture is dependent on should be returned from the `getDependencies` method.
 
 ```php
-<?php
-
-declare(strict_types=1);
-
-namespace FamilyOffice\FixturesLibrary\Example;
+namespace FamilyOffice\FixturesLibrary\Example\Basic\Fixtures;
 
 use FamilyOffice\FixturesLibrary\FixtureInterface;
 
-class ExampleParentFixture implements FixtureInterface
+final class ElephantFixture implements FixtureInterface
 {
     public function getDependencies(): array
     {
-        return [ExampleChildFixture::class];
+        return [EarFixture::class];
     }
 
     public function load(): void
     {
-        // TODO: Implement load() method.
+        // todo: implement data loading
     }
 }
 ```
 
-### Building the dependency chain
+### Loading the Fixtures
 
-#### Fixture Factory
-
-The fixture factory is essential for the procedure because it tells the fixture loader how to create instances of
-fixture classes.
-
-In this example, we're simply creating a new object from the `class-string`, but your use-case might involve fetching it
-from a DI container or similar.
-
-All fixture factories must implement the `FixtureFactoryInterface`.
+The quickest and easiest way to load the fixtures is by creating a default chain builder instance.
 
 ```php
-<?php
-
-declare(strict_types=1);
-
-namespace FamilyOffice\FixturesLibrary\Example;
-
-use FamilyOffice\FixturesLibrary\FixtureFactoryInterface;
-use FamilyOffice\FixturesLibrary\FixtureInterface;
-
-class MyFixtureFactory implements FixtureFactoryInterface
-{
-    public function createInstance(string $fixtureClass): FixtureInterface
-    {
-        return new $fixtureClass();
-    }
-}
+$defaultChainBuilder = ChainBuilder::createQuickLoader();
 ```
 
-We can now create a fixture factory object to pass it to the chain builders' and fixture loaders' constructor later on.
+The fixtures can then be easily loaded on-the-fly as the dependency tree is built.
 
 ```php
-$fixtureFactory = new MyFixtureFactory();
+$defaultChainBuilder->build([new ElephantFixture()]);
 ```
 
-#### Chain Builder
+### Full Example
 
-To be able to load all fixtures and their dependencies, the fixture loader needs a dependency chain to work with.
+A full example of this can be found [here](./example/Basic).
 
-Creating a dependency chain is fairly simple:
+### Advanced Usage
 
-```php
-<?php
+The dependency chain building and loading process can be fully customized to your needs.
 
-declare(strict_types=1);
-
-use FamilyOffice\FixturesLibrary\Dependency\ChainBuilder;
-use FamilyOffice\FixturesLibrary\Example\ExampleParentFixture;
-
-require __DIR__ . '/../vendor/autoload.php';
-
-$fixtureFactory = new MyFixtureFactory();
-$chainBuilder = new ChainBuilder($fixtureFactory);
-
-$fixtures = [new ExampleParentFixture()/* ... */];
-$dependencyChain = $chainBuilder->build($fixtures);
-```
-
-### Loading the dependency chain
-
-The only thing left to do is loading the dependency chain using the fixture loader:
-
-```php
-// (...)
-
-$dependencyChain = $chainBuilder->build($fixtures);
-
-$fixtureLoader = new Loader($fixtureFactory);
-$fixtureLoader->loadDependencyChain($dependencyChain);
-```
+An extended documentation on the advanced capabilities of this library can be found [here](docs/advanced.md).
 
 ## License
 

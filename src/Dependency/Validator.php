@@ -23,6 +23,6 @@ final class Validator
             return;
         }
 
-        throw new InvalidFixtureException(sprintf('%s is not a valid fixture dependency!', $dependencyClass));
+        throw new InvalidFixtureException(sprintf('%s is not a valid fixture!', $dependencyClass));
     }
 }
