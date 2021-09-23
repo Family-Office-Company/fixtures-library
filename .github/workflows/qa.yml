@@ -7,6 +7,7 @@ jobs:
     name: PHPStan
     runs-on: ubuntu-latest
     strategy:
+      fail-fast: false
       matrix:
         php:
           - 7.4
@@ -38,6 +39,7 @@ jobs:
     name: Psalm
     runs-on: ubuntu-latest
     strategy:
+      fail-fast: false
       matrix:
         php:
           - 7.4
@@ -69,6 +71,7 @@ jobs:
     name: Easy coding standard
     runs-on: ubuntu-latest
     strategy:
+      fail-fast: false
       matrix:
         php:
           - 7.4
@@ -96,10 +99,11 @@ jobs:
       - name: ECS
         run: ./vendor/bin/ecs check
 
-  ecs_markdown:
+  ecs-markdown:
     name: Easy coding standard for Markdown
     runs-on: ubuntu-latest
     strategy:
+      fail-fast: false
       matrix:
         php:
           - 7.4
@@ -127,10 +131,11 @@ jobs:
       - name: ECS
         run: ./vendor/bin/ecs check-markdown README.md docs/advanced.md
 
-  composer_normalize:
+  composer-normalize:
     name: composer.json normalizer
     runs-on: ubuntu-latest
     strategy:
+      fail-fast: false
       matrix:
         php:
           - 7.4
@@ -158,10 +163,11 @@ jobs:
       - name: composer normalize
         run: composer normalize --dry-run
 
-  composer_validate:
+  composer-validate:
     name: composer.json validation
     runs-on: ubuntu-latest
     strategy:
+      fail-fast: false
       matrix:
         php:
           - 7.4
@@ -185,6 +191,7 @@ jobs:
     name: Unit & integration tests
     runs-on: ubuntu-latest
     strategy:
+      fail-fast: false
       matrix:
         php:
           - 7.4
@@ -216,6 +223,7 @@ jobs:
     name: Mutation tests
     runs-on: ubuntu-latest
     strategy:
+      fail-fast: false
       matrix:
         php:
           - 7.4
@@ -249,10 +257,11 @@ jobs:
       - name: Infection
         run: ./infection.phar --min-msi=100 --min-covered-msi=100
 
-  composer_require_checker:
+  composer-require-checker:
     name: Composer Require Checker
     runs-on: ubuntu-latest
     strategy:
+      fail-fast: false
       matrix:
         php:
           - 7.4
@@ -313,3 +322,40 @@ jobs:
           config_file: .yamllint.yml
           file_or_dir: .
           strict: true
+
+  code-coverage:
+    name: Code Coverage
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        php:
+          - 7.4
+          - 8.0
+        composer-preference:
+          - lowest
+          - highest
+    steps:
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ matrix.php }}
+
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Install dependencies
+        if: matrix.composer-preference == 'highest'
+        run: composer update --no-interaction --no-progress --no-ansi
+
+      - name: Install dependencies
+        if: matrix.composer-preference == 'lowest'
+        run: composer update --no-interaction --no-progress --no-ansi --prefer-lowest
+
+      - name: Generate code coverage
+        run: XDEBUG_MODE=coverage vendor/bin/phpunit --coverage-clover=coverage.xml
+
+      - name: Send code coverage report to Codecov.io
+        uses: codecov/codecov-action@v1
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
