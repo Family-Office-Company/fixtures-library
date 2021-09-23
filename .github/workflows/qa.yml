@@ -234,7 +234,7 @@ jobs:
         run: php tools/composer-require-checker
 
   yamllint:
-    name: Composer Require Checker
+    name: Yamll
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
@@ -243,6 +243,6 @@ jobs:
       - name: Yamllint
         uses: ibiqlik/action-yamllint@v3
         with:
-          config_file: .yamllint.yaml
+          config_file: .yamllint.yml
           file_or_dir: .
           strict: true
