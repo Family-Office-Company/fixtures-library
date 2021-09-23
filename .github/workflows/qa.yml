@@ -359,3 +359,35 @@ jobs:
         uses: codecov/codecov-action@v1
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
+
+  unit-tests-memory-leaks:
+    name: Unit tests memory leaks
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        php:
+          - 7.4
+          - 8.0
+        composer-preference:
+          - lowest
+          - highest
+    steps:
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ matrix.php }}
+
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Install dependencies
+        if: matrix.composer-preference == 'highest'
+        run: composer update --no-interaction --no-progress --no-ansi
+
+      - name: Install dependencies
+        if: matrix.composer-preference == 'lowest'
+        run: composer update --no-interaction --no-progress --no-ansi --prefer-lowest
+
+      - name: Roave no leaks
+        run: vendor/bin/roave-no-leaks

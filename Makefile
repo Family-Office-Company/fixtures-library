@@ -25,6 +25,7 @@ cs: ## enforce code style
 	vendor/bin/ecs check-markdown README.md docs/advanced.md --fix
 	composer normalize
 	yamllint -c .yamllint.yml --strict .
+	vendor/bin/roave-no-leaks
 
 .PHONY: analysis
 analysis: ## run static code analysis
