@@ -234,7 +234,7 @@ jobs:
         run: php tools/composer-require-checker
 
   yamllint:
-    name: Yamll
+    name: Yamllint
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
