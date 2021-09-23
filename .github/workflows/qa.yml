@@ -224,4 +224,4 @@ jobs:
           trustGpgKeys: C5095986493B4AA0,033E5F8D801A2F8D
 
       - name: Composer Require Checker
-        run: tools/composer-require-checker
+        run: php tools/composer-require-checker
