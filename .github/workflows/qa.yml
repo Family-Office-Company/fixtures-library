@@ -187,13 +187,13 @@ jobs:
       - name: Infection
         run: ./infection.phar --min-msi=100 --min-covered-msi=100
 
-  phive:
+  composer_require_checker:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        php-version:
+        php:
           - 7.4
-          - 7.3
+          - 8.0
     steps:
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
@@ -207,8 +207,8 @@ jobs:
         uses: actions/cache@v2.1.2
         with:
           path: ${{ runner.temp }}/.phive
-          key: php-${{ matrix.php-version }}-phive-${{ hashFiles('.phive/phars.xml') }}
-          restore-keys: php-${{ matrix.php-version }}-phive-
+          key: php-${{ matrix.php }}-phive-${{ hashFiles('.phive/phars.xml') }}
+          restore-keys: php-${{ matrix.php }}-phive-
 
       - name: Install PHIVE
         uses: szepeviktor/phive@v1
