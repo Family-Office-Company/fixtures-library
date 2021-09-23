@@ -203,6 +203,9 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
+      - name: Install dependencies
+        run: composer update --no-interaction --no-progress --no-ansi
+
       - name: Cache tools installed with PHIVE
         uses: actions/cache@v2.1.2
         with:
