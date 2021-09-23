@@ -3,5 +3,6 @@
 /logs/
 /tools/
 /vendor/
+/.env
 /.phpunit.result.cache
 /composer.lock

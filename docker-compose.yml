@@ -5,4 +5,5 @@ services:
     volumes:
       - ./:/workspace:cached
     environment:
-      - XDEBUG_ENABLED=1
+      - XDEBUG_ENABLED=${XDEBUG_ENABLED}
+      - PHP_VERSION=${PHP_VERSION}
