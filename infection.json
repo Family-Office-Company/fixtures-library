@@ -13,5 +13,7 @@
     "summary": "logs/summary.log",
     "json": "logs/infection-log.json",
     "perMutator": "logs/per-mutator.md"
-  }
+  },
+  "minCoveredMsi": 100,
+  "minMsi": 100
 }

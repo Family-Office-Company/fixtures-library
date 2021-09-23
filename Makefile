@@ -40,7 +40,7 @@ check: | cs analysis test ## run all quality checks
 .PHONY: test
 test: ## run unit tests
 	vendor/bin/phpunit
-	XDEBUG_MODE=coverage tools/infection --min-msi=100 --min-covered-msi=100
+	XDEBUG_MODE=coverage tools/infection
 
 .PHONY: start
 start: ## start docker environment

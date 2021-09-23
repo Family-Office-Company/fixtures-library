@@ -255,7 +255,7 @@ jobs:
         run: chmod +x infection.phar
 
       - name: Infection
-        run: ./infection.phar --min-msi=100 --min-covered-msi=100
+        run: ./infection.phar
 
   composer-require-checker:
     name: Composer Require Checker
