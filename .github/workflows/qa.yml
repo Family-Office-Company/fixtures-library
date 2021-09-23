@@ -167,8 +167,8 @@ jobs:
     strategy:
       matrix:
         php:
-          - "7.4"
-          - "8.0"
+          - 7.4
+          - 8.0
     steps:
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
@@ -186,3 +186,42 @@ jobs:
 
       - name: Infection
         run: ./infection.phar --min-msi=100 --min-covered-msi=100
+
+  phive:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        php-version:
+          - 7.4
+          - 7.3
+    steps:
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ matrix.php }}
+
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Cache tools installed with PHIVE
+        uses: actions/cache@v2.1.2
+        with:
+          path: ${{ runner.temp }}/.phive
+          key: php-${{ matrix.php-version }}-phive-${{ hashFiles('.phive/phars.xml') }}
+          restore-keys: php-${{ matrix.php-version }}-phive-
+
+      - name: Install PHIVE
+        uses: szepeviktor/phive@v1
+        with:
+          home: ${{ runner.temp }}/.phive
+          binPath: ${{ github.workspace }}/tools/phive
+
+      - name: Install PHP tools with PHIVE
+        uses: szepeviktor/phive-install@v1
+        with:
+          home: ${{ runner.temp }}/.phive
+          binPath: ${{ github.workspace }}/tools/phive
+          trustGpgKeys: C5095986493B4AA0,033E5F8D801A2F8D
+
+      - name: Composer Require Checker
+        run: tools/composer-require-checker
