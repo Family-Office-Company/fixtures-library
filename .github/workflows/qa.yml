@@ -182,12 +182,16 @@ jobs:
         run: composer update --no-interaction --no-progress --no-ansi
 
       - name: Download Infection
-        run: wget https://github.com/infection/infection/releases/download/0.25.0/infection.phar && chmod +x infection.phar
+        run: wget https://github.com/infection/infection/releases/download/0.25.0/infection.phar
+
+      - name: Add execution permissions
+        run: chmod +x infection.phar
 
       - name: Infection
         run: ./infection.phar --min-msi=100 --min-covered-msi=100
 
   composer_require_checker:
+    name: Composer Require Checker
     runs-on: ubuntu-latest
     strategy:
       matrix:
@@ -228,3 +232,17 @@ jobs:
 
       - name: Composer Require Checker
         run: php tools/composer-require-checker
+
+  yamllint:
+    name: Composer Require Checker
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Yamllint
+        uses: ibiqlik/action-yamllint@v3
+        with:
+          config_file: .yamllint.yaml
+          file_or_dir: .
+          strict: true
