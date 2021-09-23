@@ -10,7 +10,7 @@ env: # Setup .env file
 
 install: ## install dependencies
 	composer update --no-interaction --no-progress --no-ansi
-	phive --no-progress install --trust-gpg-keys C5095986493B4AA0
+	phive --no-progress install --trust-gpg-keys C5095986493B4AA0,033E5F8D801A2F8D
 
 clean: ## cleanup installed dependencies and lock files
 	rm -rf logs
@@ -29,6 +29,7 @@ cs: ## enforce code style
 analysis: ## run static code analysis
 	vendor/bin/phpstan
 	vendor/bin/psalm
+	php tools/composer-require-checker
 
 .PHONY: check
 check: | cs analysis test ## run all quality checks
