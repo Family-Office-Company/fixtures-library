@@ -24,12 +24,8 @@ final class ChainLoader
         return new self(new DefaultFixtureFactory(), new DefaultFixtureLoader());
     }
 
-    /**
-     * @psalm-param array<class-string, array> $dependencyChain
-     */
     public function loadDependencyChain(array $dependencyChain): void
     {
-        /** @psalm-var array<class-string, array> $dependencySubChain */
         foreach ($dependencyChain as $parentFixture => $dependencySubChain) {
             $this->loadDependencyChain($dependencySubChain);
             $instance = $this->fixtureFactory->createInstance($parentFixture);

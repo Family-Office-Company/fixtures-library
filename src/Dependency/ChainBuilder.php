@@ -12,6 +12,8 @@ use FamilyOffice\FixturesLibrary\Factory\DefaultFixtureFactory;
 use FamilyOffice\FixturesLibrary\FixtureComputerInterface;
 use FamilyOffice\FixturesLibrary\FixtureFactoryInterface;
 use FamilyOffice\FixturesLibrary\FixtureInterface;
+use Safe\Exceptions\SplException;
+use Safe\Exceptions\StringsException;
 
 final class ChainBuilder
 {
@@ -44,16 +46,19 @@ final class ChainBuilder
     /**
      * @param FixtureInterface[] $fixtures
      *
-     * @psalm-return array<class-string, array>
+     * @throws CircularReferenceException
+     * @throws InvalidFixtureException
+     * @throws SplException
+     * @throws StringsException
      *
-     * @throws InvalidFixtureException|CircularReferenceException
+     * @psalm-return array<class-string, array>
      */
     public function build(array $fixtures): array
     {
         $dependencyChain = [];
 
         // way faster than waiting for computation
-        if (0 === \count($fixtures)) {
+        if ([] === $fixtures) {
             return [];
         }
 
@@ -79,9 +84,6 @@ final class ChainBuilder
         return $dependencyChain;
     }
 
-    /**
-     * @psalm-param class-string $fixtureClass
-     */
     private function computeFixture(FixtureInterface $fixture, string $fixtureClass): void
     {
         $this->fixtureComputer->computeFixture($fixture);
@@ -89,12 +91,10 @@ final class ChainBuilder
     }
 
     /**
-     * @psalm-param class-string[] $dependencyClasses
-     * @psalm-param class-string[] $scopedChain
-     *
-     * @psalm-return array<class-string, array>
-     *
-     * @throws InvalidFixtureException|CircularReferenceException
+     * @throws CircularReferenceException
+     * @throws InvalidFixtureException
+     * @throws SplException
+     * @throws StringsException
      */
     private function buildDependencySubChain(array $dependencyClasses, array $scopedChain): array
     {
@@ -124,9 +124,6 @@ final class ChainBuilder
         return $dependencySubChain;
     }
 
-    /**
-     * @psalm-param class-string $fixture
-     */
     private function alreadyComputed(string $fixture): bool
     {
         return \in_array($fixture, $this->computed, true);

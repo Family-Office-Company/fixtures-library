@@ -10,7 +10,7 @@ use PHPUnit\Framework\TestCase;
 
 final class OnFlyFixtureComputerTest extends TestCase
 {
-    public function testcomputeFixture(): void
+    public function testComputeFixture(): void
     {
         $computer = new OnFlyFixtureComputer();
 

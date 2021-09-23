@@ -21,17 +21,18 @@ clean: ## cleanup installed dependencies and lock files
 
 .PHONY: cs
 cs: ## enforce code style
+	vendor/bin/rector process
 	vendor/bin/ecs check --fix
 	vendor/bin/ecs check-markdown README.md docs/advanced.md --fix
 	composer normalize
 	yamllint -c .yamllint.yml --strict .
-	vendor/bin/roave-no-leaks
 
 .PHONY: analysis
 analysis: ## run static code analysis
 	vendor/bin/phpstan
 	vendor/bin/psalm
 	php tools/composer-require-checker
+		vendor/bin/roave-no-leaks
 
 .PHONY: check
 check: | cs analysis test ## run all quality checks
