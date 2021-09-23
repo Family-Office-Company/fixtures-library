@@ -7,6 +7,7 @@ jobs:
     name: PHPStan
     runs-on: ubuntu-latest
     strategy:
+      fail-fast: false
       matrix:
         php:
           - 7.4
@@ -38,6 +39,7 @@ jobs:
     name: Psalm
     runs-on: ubuntu-latest
     strategy:
+      fail-fast: false
       matrix:
         php:
           - 7.4
@@ -69,6 +71,7 @@ jobs:
     name: Easy coding standard
     runs-on: ubuntu-latest
     strategy:
+      fail-fast: false
       matrix:
         php:
           - 7.4
@@ -100,6 +103,7 @@ jobs:
     name: Easy coding standard for Markdown
     runs-on: ubuntu-latest
     strategy:
+      fail-fast: false
       matrix:
         php:
           - 7.4
@@ -131,6 +135,7 @@ jobs:
     name: composer.json normalizer
     runs-on: ubuntu-latest
     strategy:
+      fail-fast: false
       matrix:
         php:
           - 7.4
@@ -162,6 +167,7 @@ jobs:
     name: composer.json validation
     runs-on: ubuntu-latest
     strategy:
+      fail-fast: false
       matrix:
         php:
           - 7.4
@@ -185,6 +191,7 @@ jobs:
     name: Unit & integration tests
     runs-on: ubuntu-latest
     strategy:
+      fail-fast: false
       matrix:
         php:
           - 7.4
@@ -216,6 +223,7 @@ jobs:
     name: Mutation tests
     runs-on: ubuntu-latest
     strategy:
+      fail-fast: false
       matrix:
         php:
           - 7.4
@@ -253,6 +261,7 @@ jobs:
     name: Composer Require Checker
     runs-on: ubuntu-latest
     strategy:
+      fail-fast: false
       matrix:
         php:
           - 7.4
