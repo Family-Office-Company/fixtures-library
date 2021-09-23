@@ -17,7 +17,6 @@ use PHPUnit\Framework\TestCase;
 final class DefaultFixtureFactoryTest extends TestCase
 {
     /**
-     * @psalm-param class-string $fixtureClass
      * @dataProvider dataProviderTestCreateInstance
      */
     public function testCreateInstance(string $fixtureClass): void

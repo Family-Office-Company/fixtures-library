@@ -29,18 +29,20 @@ use FamilyOffice\FixturesLibrary\Tests\Support\NestedCircularReferenceFixture3;
 use FamilyOffice\FixturesLibrary\Tests\Support\SelfDependentFixture;
 use FamilyOffice\FixturesLibrary\Tests\Support\UnrelatedFixture;
 use PHPUnit\Framework\TestCase;
+use Safe\Exceptions\SplException;
+use Safe\Exceptions\StringsException;
 
 final class ChainBuilderTest extends TestCase
 {
     /**
      * @dataProvider dataProviderTestBuild
      *
-     * @psalm-param array<class-string, array> $expected
-     *
      * @param FixtureInterface[] $fixtures
      *
      * @throws CircularReferenceException
      * @throws InvalidFixtureException
+     * @throws SplException
+     * @throws StringsException
      */
     public function testBuild(array $expected, array $fixtures): void
     {
@@ -126,6 +128,8 @@ final class ChainBuilderTest extends TestCase
      *
      * @throws CircularReferenceException
      * @throws InvalidFixtureException
+     * @throws SplException
+     * @throws StringsException
      */
     public function testBuildCircularReferenceException(array $fixtures): void
     {

@@ -13,15 +13,17 @@ use FamilyOffice\FixturesLibrary\Tests\Support\Fixture4;
 use FamilyOffice\FixturesLibrary\Tests\Support\Fixture5;
 use FamilyOffice\FixturesLibrary\Tests\Support\FixtureWithConstructorArgument;
 use PHPUnit\Framework\TestCase;
+use Safe\Exceptions\SplException;
+use Safe\Exceptions\StringsException;
 
 final class ValidatorTest extends TestCase
 {
     /**
      * @dataProvider dataProviderTestValidDependencyClasses
      *
-     * @psalm-param class-string $dependencyClass
-     *
      * @throws InvalidFixtureException
+     * @throws SplException
+     * @throws StringsException
      */
     public function testValidDependencyClasses(string $dependencyClass): void
     {
@@ -43,9 +45,9 @@ final class ValidatorTest extends TestCase
     /**
      * @dataProvider dataProviderTestInvalidDependencyClasses
      *
-     * @psalm-param class-string $dependencyClass
-     *
      * @throws InvalidFixtureException
+     * @throws SplException
+     * @throws StringsException
      */
     public function testInvalidDependencyClasses(string $dependencyClass): void
     {
@@ -65,6 +67,8 @@ final class ValidatorTest extends TestCase
 
     /**
      * @throws InvalidFixtureException
+     * @throws SplException
+     * @throws StringsException
      */
     public function testFixtureWithConstructorArgumentCrashes(): void
     {

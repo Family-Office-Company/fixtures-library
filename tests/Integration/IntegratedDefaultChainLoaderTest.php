@@ -15,6 +15,8 @@ use FamilyOffice\FixturesLibrary\Tests\Support\Fixture3;
 use FamilyOffice\FixturesLibrary\Tests\Support\Fixture4;
 use FamilyOffice\FixturesLibrary\Tests\Support\Fixture5;
 use PHPUnit\Framework\TestCase;
+use Safe\Exceptions\SplException;
+use Safe\Exceptions\StringsException;
 
 final class IntegratedDefaultChainLoaderTest extends TestCase
 {
@@ -23,6 +25,8 @@ final class IntegratedDefaultChainLoaderTest extends TestCase
      *
      * @throws CircularReferenceException
      * @throws InvalidFixtureException
+     * @throws SplException
+     * @throws StringsException
      */
     public function testBuildAndLoadDependencyChain(FixtureInterface $fixture): void
     {

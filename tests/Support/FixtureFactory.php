@@ -9,9 +9,6 @@ use FamilyOffice\FixturesLibrary\FixtureInterface;
 
 class FixtureFactory implements FixtureFactoryInterface
 {
-    /**
-     * @psalm-param class-string $fixtureClass
-     */
     public function createInstance(string $fixtureClass): FixtureInterface
     {
         // will be mocked anyways

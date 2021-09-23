@@ -6,6 +6,8 @@ namespace FamilyOffice\FixturesLibrary\Dependency;
 
 use FamilyOffice\FixturesLibrary\Exception\InvalidFixtureException;
 use FamilyOffice\FixturesLibrary\FixtureInterface;
+use Safe\Exceptions\SplException;
+use Safe\Exceptions\StringsException;
 
 final class Validator
 {
@@ -13,16 +15,20 @@ final class Validator
      * @param mixed $dependencyClass
      *
      * @throws InvalidFixtureException
+     * @throws SplException
+     * @throws StringsException
      */
     public function validateDependencyClass($dependencyClass): void
     {
         if (\is_string($dependencyClass)
-            && class_exists($dependencyClass)
-            && \is_array(($implements = class_implements($dependencyClass)))
-            && \in_array(FixtureInterface::class, $implements, true)) {
-            return;
+            && class_exists($dependencyClass)) {
+            $implements = \Safe\class_implements($dependencyClass);
+
+            if (\in_array(FixtureInterface::class, $implements, true)) {
+                return;
+            }
         }
 
-        throw new InvalidFixtureException(sprintf('%s is not a valid fixture!', $dependencyClass));
+        throw new InvalidFixtureException(\Safe\sprintf('%s is not a valid fixture!', $dependencyClass));
     }
 }

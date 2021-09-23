@@ -27,7 +27,13 @@ return static function (ContainerConfigurator $containerConfigurator): void {
 
     $containerConfigurator
         ->parameters()
-        ->set(Option::PATHS, [__FILE__, __DIR__ . '/example/', __DIR__ . '/src/', __DIR__ . '/tests/'])
+        ->set(Option::PATHS, [
+            __FILE__,
+            __DIR__ . '/rector.php',
+            __DIR__ . '/example/',
+            __DIR__ . '/src/',
+            __DIR__ . '/tests/',
+        ])
         ->set(Option::SKIP, [
             FinalClassFixer::class => [__DIR__ . '/tests/Support'],
             PhpUnitStrictFixer::class => [
