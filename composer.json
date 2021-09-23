@@ -30,11 +30,11 @@
     "phpstan/phpstan-strict-rules": "^0.12.11",
     "phpunit/phpunit": "^9.5",
     "psalm/plugin-phpunit": "^0.16.1",
+    "roave/no-leaks": "^1.3",
     "roave/security-advisories": "dev-latest",
     "symfony/thanks": "^1.2",
     "symplify/easy-coding-standard": "^9.4",
-    "vimeo/psalm": "^4.9",
-    "roave/no-leaks": "^1.3"
+    "vimeo/psalm": "^4.9"
   },
   "autoload": {
     "psr-4": {
