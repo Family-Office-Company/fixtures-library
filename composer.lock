@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "85751adfc5268d0f2b30cf75bf932fb2",
+    "content-hash": "8c7b39a0ced437ee9f4295508ce63eab",
     "packages": [
         {
             "name": "thecodingmachine/safe",
@@ -3070,6 +3070,64 @@
             "time": "2021-09-20T21:03:12+00:00"
         },
         {
+            "name": "sclable/xml-lint",
+            "version": "0.4.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/sclable/xml-lint.git",
+                "reference": "b5109321dcb878c6777f91727ef955bb38f03f4e"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/sclable/xml-lint/zipball/b5109321dcb878c6777f91727ef955bb38f03f4e",
+                "reference": "b5109321dcb878c6777f91727ef955bb38f03f4e",
+                "shasum": ""
+            },
+            "require": {
+                "ext-dom": "*",
+                "ext-libxml": "*",
+                "php": "7.3.*|7.4.*|8.0.*",
+                "symfony/console": "3.4.*|4.4.*|5.*",
+                "symfony/finder": "3.4.*|4.4.*|5.*"
+            },
+            "require-dev": {
+                "behat/behat": "^3.0",
+                "phpunit/phpunit": "^9.1"
+            },
+            "bin": [
+                "bin/xmllint"
+            ],
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "sclable\\xmlLint\\": "src/php/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Michael Rutz",
+                    "email": "michael.rutz@sclable.com"
+                }
+            ],
+            "description": "A php cli tool to lint and validate xml files.",
+            "keywords": [
+                "cli",
+                "lint",
+                "xml",
+                "xml schema",
+                "xsd"
+            ],
+            "support": {
+                "issues": "https://github.com/sclable/xml-lint/issues",
+                "source": "https://github.com/sclable/xml-lint/tree/0.4.0"
+            },
+            "time": "2020-12-17T08:34:31+00:00"
+        },
+        {
             "name": "sebastian/cli-parser",
             "version": "1.0.1",
             "source": {
@@ -4198,6 +4256,68 @@
                 }
             ],
             "time": "2021-03-23T23:28:01+00:00"
+        },
+        {
+            "name": "symfony/finder",
+            "version": "v5.3.7",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/symfony/finder.git",
+                "reference": "a10000ada1e600d109a6c7632e9ac42e8bf2fb93"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/symfony/finder/zipball/a10000ada1e600d109a6c7632e9ac42e8bf2fb93",
+                "reference": "a10000ada1e600d109a6c7632e9ac42e8bf2fb93",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=7.2.5",
+                "symfony/polyfill-php80": "^1.16"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Symfony\\Component\\Finder\\": ""
+                },
+                "exclude-from-classmap": [
+                    "/Tests/"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Fabien Potencier",
+                    "email": "fabien@symfony.com"
+                },
+                {
+                    "name": "Symfony Community",
+                    "homepage": "https://symfony.com/contributors"
+                }
+            ],
+            "description": "Finds files and directories via an intuitive fluent interface",
+            "homepage": "https://symfony.com",
+            "support": {
+                "source": "https://github.com/symfony/finder/tree/v5.3.7"
+            },
+            "funding": [
+                {
+                    "url": "https://symfony.com/sponsor",
+                    "type": "custom"
+                },
+                {
+                    "url": "https://github.com/fabpot",
+                    "type": "github"
+                },
+                {
+                    "url": "https://tidelift.com/funding/github/packagist/symfony/symfony",
+                    "type": "tidelift"
+                }
+            ],
+            "time": "2021-08-04T21:20:46+00:00"
         },
         {
             "name": "symfony/polyfill-ctype",
