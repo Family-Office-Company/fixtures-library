@@ -16,7 +16,6 @@ clean: ## cleanup installed dependencies and lock files
 	rm -rf logs
 	rm -rf tools
 	rm -rf vendor
-	rm -rf composer.lock
 	rm -rf .phpunit.result.cache
 
 .PHONY: cs
