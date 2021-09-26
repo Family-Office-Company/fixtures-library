@@ -76,9 +76,6 @@ jobs:
         php:
           - 7.4
           - 8.0
-        composer-preference:
-          - lowest
-          - highest
     steps:
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
@@ -89,12 +86,7 @@ jobs:
         uses: actions/checkout@v2
 
       - name: Install dependencies
-        if: matrix.composer-preference == 'highest'
         run: composer update --no-interaction --no-progress --no-ansi
-
-      - name: Install dependencies
-        if: matrix.composer-preference == 'lowest'
-        run: composer update --no-interaction --no-progress --no-ansi --prefer-lowest
 
       - name: ECS
         run: ./vendor/bin/ecs check
@@ -108,9 +100,6 @@ jobs:
         php:
           - 7.4
           - 8.0
-        composer-preference:
-          - lowest
-          - highest
     steps:
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
@@ -121,12 +110,7 @@ jobs:
         uses: actions/checkout@v2
 
       - name: Install dependencies
-        if: matrix.composer-preference == 'highest'
         run: composer update --no-interaction --no-progress --no-ansi
-
-      - name: Install dependencies
-        if: matrix.composer-preference == 'lowest'
-        run: composer update --no-interaction --no-progress --no-ansi --prefer-lowest
 
       - name: ECS
         run: ./vendor/bin/ecs check-markdown README.md docs/advanced.md
@@ -140,9 +124,6 @@ jobs:
         php:
           - 7.4
           - 8.0
-        composer-preference:
-          - lowest
-          - highest
     steps:
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
@@ -153,12 +134,7 @@ jobs:
         uses: actions/checkout@v2
 
       - name: Install dependencies
-        if: matrix.composer-preference == 'highest'
         run: composer update --no-interaction --no-progress --no-ansi
-
-      - name: Install dependencies
-        if: matrix.composer-preference == 'lowest'
-        run: composer update --no-interaction --no-progress --no-ansi --prefer-lowest
 
       - name: composer normalize
         run: composer normalize --dry-run
@@ -172,9 +148,6 @@ jobs:
         php:
           - 7.4
           - 8.0
-        composer-preference:
-          - lowest
-          - highest
     steps:
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
@@ -228,9 +201,6 @@ jobs:
         php:
           - 7.4
           - 8.0
-        composer-preference:
-          - lowest
-          - highest
     steps:
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
@@ -241,12 +211,7 @@ jobs:
         uses: actions/checkout@v2
 
       - name: Install dependencies
-        if: matrix.composer-preference == 'highest'
         run: composer update --no-interaction --no-progress --no-ansi
-
-      - name: Install dependencies
-        if: matrix.composer-preference == 'lowest'
-        run: composer update --no-interaction --no-progress --no-ansi --prefer-lowest
 
       - name: Download Infection
         run: wget https://github.com/infection/infection/releases/download/0.25.0/infection.phar
@@ -332,9 +297,6 @@ jobs:
         php:
           - 7.4
           - 8.0
-        composer-preference:
-          - lowest
-          - highest
     steps:
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
@@ -345,12 +307,7 @@ jobs:
         uses: actions/checkout@v2
 
       - name: Install dependencies
-        if: matrix.composer-preference == 'highest'
         run: composer update --no-interaction --no-progress --no-ansi
-
-      - name: Install dependencies
-        if: matrix.composer-preference == 'lowest'
-        run: composer update --no-interaction --no-progress --no-ansi --prefer-lowest
 
       - name: Generate code coverage
         run: XDEBUG_MODE=coverage vendor/bin/phpunit --coverage-clover=coverage.xml
@@ -401,9 +358,6 @@ jobs:
         php:
           - 7.4
           - 8.0
-        composer-preference:
-          - lowest
-          - highest
     steps:
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
@@ -414,11 +368,6 @@ jobs:
         uses: actions/checkout@v2
 
       - name: Install dependencies
-        if: matrix.composer-preference == 'highest'
-        run: composer update --no-interaction --no-progress --no-ansi
-
-      - name: Install dependencies
-        if: matrix.composer-preference == 'lowest'
         run: composer update --no-interaction --no-progress --no-ansi --prefer-lowest
 
       - name: Rector
