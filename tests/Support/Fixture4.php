@@ -8,6 +8,11 @@ use FamilyOffice\FixturesLibrary\FixtureInterface;
 
 class Fixture4 implements FixtureInterface
 {
+    public function getFlags(): array
+    {
+        return [];
+    }
+
     public function getDependencies(): array
     {
         return [];

@@ -8,6 +8,11 @@ use FamilyOffice\FixturesLibrary\FixtureInterface;
 
 final class EarFixture implements FixtureInterface
 {
+    public function getFlags(): array
+    {
+        return [];
+    }
+
     public function getDependencies(): array
     {
         return [];

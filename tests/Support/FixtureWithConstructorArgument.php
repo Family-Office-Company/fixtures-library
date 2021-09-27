@@ -15,6 +15,11 @@ class FixtureWithConstructorArgument implements FixtureInterface
         $this->foo = $foo;
     }
 
+    public function getFlags(): array
+    {
+        return [];
+    }
+
     public function getDependencies(): array
     {
         return [$this->foo];
