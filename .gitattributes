@@ -23,3 +23,5 @@
 /psalm.xml                      export-ignore
 /README.md                      export-ignore
 /rector.php                     export-ignore
+
+/composer.lock                  -diff
