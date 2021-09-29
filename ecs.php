@@ -42,7 +42,8 @@ return static function (ContainerConfigurator $containerConfigurator): void {
                 /* @see \FamilyOffice\FixturesLibrary\Tests\Unit\Loader\ChainLoaderTest::testCreateDefault() */
                 __DIR__ . '/tests/Unit/Loader/ChainLoaderTest.php',
             ],
-        ]);
+        ])
+        ->set(Option::PARALLEL, true);
 
     $containerConfigurator
         ->services()
