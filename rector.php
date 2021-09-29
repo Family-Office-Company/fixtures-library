@@ -3,6 +3,7 @@
 declare(strict_types=1);
 
 use Rector\Core\Configuration\Option;
+use Rector\DeadCode\Rector\ClassMethod\RemoveUnusedPromotedPropertyRector;
 use Rector\Privatization\Rector\Class_\FinalizeClassesWithoutChildrenRector;
 use Rector\Set\ValueObject\SetList;
 use Rector\TypeDeclaration\Rector\ClassMethod\AddArrayParamDocTypeRector;
@@ -26,6 +27,7 @@ return static function (ContainerConfigurator $containerConfigurator): void {
         ->set(Option::SKIP, [
             AddArrayReturnDocTypeRector::class,
             AddArrayParamDocTypeRector::class,
+            RemoveUnusedPromotedPropertyRector::class,
             FinalizeClassesWithoutChildrenRector::class => [__DIR__ . '/tests/Support'],
         ]);
 };

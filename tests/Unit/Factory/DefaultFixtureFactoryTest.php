@@ -26,9 +26,6 @@ final class DefaultFixtureFactoryTest extends TestCase
         self::assertSame($fixtureClass, \get_class($fixtureFactory->createInstance($fixtureClass)));
     }
 
-    /**
-     * @psalm-return iterable<array<int, class-string>>
-     */
     public function dataProviderTestCreateInstance(): iterable
     {
         yield [Fixture1::class];

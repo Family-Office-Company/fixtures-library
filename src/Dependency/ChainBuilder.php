@@ -50,8 +50,6 @@ final class ChainBuilder
      * @throws InvalidFixtureException
      * @throws SplException
      * @throws StringsException
-     *
-     * @psalm-return array<class-string, array>
      */
     public function build(array $fixtures): array
     {

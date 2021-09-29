@@ -61,11 +61,6 @@ parameters:
 			path: tests/Support/FixtureWithConstructorArgument.php
 
 		-
-			message: "#^Method FamilyOffice\\\\FixturesLibrary\\\\Tests\\\\Support\\\\FixtureWithConstructorArgument\\:\\:getDependencies\\(\\) should return array\\<class\\-string\\> but returns array\\<int, string\\>\\.$#"
-			count: 1
-			path: tests/Support/FixtureWithConstructorArgument.php
-
-		-
 			message: "#^Class FamilyOffice\\\\FixturesLibrary\\\\Tests\\\\Support\\\\InvalidDependencyFixture is neither abstract nor final\\.$#"
 			count: 1
 			path: tests/Support/InvalidDependencyFixture.php
