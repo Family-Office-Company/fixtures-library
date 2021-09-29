@@ -1,0 +1,127 @@
+name: Tests
+
+on: [ push ]
+
+jobs:
+  phpunit:
+    name: Unit & integration tests
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        php:
+          - 7.4
+          - 8.0
+        composer-preference:
+          - lowest
+          - highest
+    steps:
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ matrix.php }}
+
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Install dependencies
+        if: matrix.composer-preference == 'highest'
+        run: composer update --no-interaction --no-progress --no-ansi
+
+      - name: Install dependencies
+        if: matrix.composer-preference == 'lowest'
+        run: composer update --no-interaction --no-progress --no-ansi --prefer-lowest
+
+      - name: PHPUnit
+        run: vendor/bin/phpunit
+
+  infection:
+    name: Mutation tests
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        php:
+          - 7.4
+          - 8.0
+    steps:
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ matrix.php }}
+
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Install dependencies
+        run: composer update --no-interaction --no-progress --no-ansi
+
+      - name: Download Infection
+        run: wget https://github.com/infection/infection/releases/download/0.25.0/infection.phar
+
+      - name: Add execution permissions
+        run: chmod +x infection.phar
+
+      - name: Infection
+        run: ./infection.phar
+
+  code-coverage:
+    name: Code Coverage
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        php:
+          - 7.4
+          - 8.0
+    steps:
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ matrix.php }}
+
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Install dependencies
+        run: composer update --no-interaction --no-progress --no-ansi
+
+      - name: Generate code coverage
+        run: XDEBUG_MODE=coverage vendor/bin/phpunit --coverage-clover=coverage.xml
+
+      - name: Send code coverage report to Codecov.io
+        uses: codecov/codecov-action@v1
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+
+  unit-tests-memory-leaks:
+    name: Unit tests memory leaks
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        php:
+          - 7.4
+          - 8.0
+        composer-preference:
+          - lowest
+          - highest
+    steps:
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ matrix.php }}
+
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Install dependencies
+        if: matrix.composer-preference == 'highest'
+        run: composer update --no-interaction --no-progress --no-ansi
+
+      - name: Install dependencies
+        if: matrix.composer-preference == 'lowest'
+        run: composer update --no-interaction --no-progress --no-ansi --prefer-lowest
+
+      - name: Roave no leaks
+        run: vendor/bin/roave-no-leaks
