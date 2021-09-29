@@ -1,0 +1,153 @@
+name: Lint
+
+on: [ push ]
+
+jobs:
+  ecs:
+    name: Easy coding standard
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        php:
+          - 7.4
+          - 8.0
+    steps:
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ matrix.php }}
+
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Install dependencies
+        run: composer update --no-interaction --no-progress --no-ansi
+
+      - name: ECS
+        run: ./vendor/bin/ecs check
+
+  ecs-markdown:
+    name: Easy coding standard for Markdown
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        php:
+          - 7.4
+          - 8.0
+    steps:
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ matrix.php }}
+
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Install dependencies
+        run: composer update --no-interaction --no-progress --no-ansi
+
+      - name: ECS
+        run: ./vendor/bin/ecs check-markdown README.md docs/advanced.md
+
+  composer-normalize:
+    name: composer.json normalizer
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        php:
+          - 7.4
+          - 8.0
+    steps:
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ matrix.php }}
+
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Install dependencies
+        run: composer update --no-interaction --no-progress --no-ansi
+
+      - name: composer normalize
+        run: composer normalize --dry-run
+
+  composer-validate:
+    name: composer.json validation
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        php:
+          - 7.4
+          - 8.0
+    steps:
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ matrix.php }}
+
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Validate composer.json
+        run: composer validate
+
+  rector:
+    name: Rector
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        php:
+          - 7.4
+          - 8.0
+    steps:
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ matrix.php }}
+
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Install dependencies
+        run: composer update --no-interaction --no-progress --no-ansi --prefer-lowest
+
+      - name: Rector
+        run: vendor/bin/rector process --dry-run
+
+  xml-lint:
+    name: XML Lint
+    runs-on: ubuntu-latest
+    steps:
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: 7.4
+
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Install dependencies
+        run: composer update --no-interaction --no-progress --no-ansi --prefer-lowest
+
+      - name: XML Lint
+        run: vendor/bin/xmllint ./ -r 0
+
+  yamllint:
+    name: Yamllint
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Yamllint
+        uses: ibiqlik/action-yamllint@v3
+        with:
+          config_file: .yamllint.yml
+          file_or_dir: .
+          strict: true
