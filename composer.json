@@ -6,14 +6,14 @@
     "fixture-loading",
     "dependency-parsing"
   ],
-  "homepage": "https://github.com/Family-Office-Company/fixtures-library",
+  "homepage": "https://github.com/FamilyOfficeOrg/fixtures-library",
   "readme": "README.md",
   "license": "MIT",
   "authors": [
     {
       "name": "Family Office",
       "email": "contact@family-office.holdings",
-      "homepage": "https://github.com/Family-Office-Company",
+      "homepage": "https://github.com/FamilyOfficeOrg",
       "role": "Manufacturer"
     }
   ],
@@ -52,6 +52,6 @@
     }
   },
   "support": {
-    "issues": "https://github.com/Family-Office-Company/fixtures-library/issues"
+    "issues": "https://github.com/FamilyOfficeOrg/fixtures-library/issues"
   }
 }
