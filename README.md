@@ -6,6 +6,8 @@
 
 An easy-to-use library for fixture and dependency loading.
 
+> ⚠️ Disclaimer: This solution was developed for a very specific use-case. The best way to load fixtures in your use-case is most likely covered by [Doctrines data fixtures](https://github.com/doctrine/data-fixtures).
+
 ## Installation
 
 ```shell
