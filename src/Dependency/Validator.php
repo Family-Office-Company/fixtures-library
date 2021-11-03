@@ -12,13 +12,11 @@ use Safe\Exceptions\StringsException;
 final class Validator
 {
     /**
-     * @param mixed $dependencyClass
-     *
      * @throws InvalidFixtureException
      * @throws SplException
      * @throws StringsException
      */
-    public function validateDependencyClass($dependencyClass): void
+    public function validateDependencyClass(mixed $dependencyClass): void
     {
         if (\is_string($dependencyClass)
             && class_exists($dependencyClass)) {

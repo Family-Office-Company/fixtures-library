@@ -10,13 +10,8 @@ use FamilyOffice\FixturesLibrary\FixtureLoaderInterface;
 
 final class ChainLoader
 {
-    private FixtureFactoryInterface $fixtureFactory;
-    private FixtureLoaderInterface $fixtureLoader;
-
-    public function __construct(FixtureFactoryInterface $fixtureFactory, FixtureLoaderInterface $fixtureLoader)
+    public function __construct(private FixtureFactoryInterface $fixtureFactory, private FixtureLoaderInterface $fixtureLoader)
     {
-        $this->fixtureFactory = $fixtureFactory;
-        $this->fixtureLoader = $fixtureLoader;
     }
 
     public static function createDefault(): self
