@@ -8,10 +8,12 @@ help: ## display command overview
 env: # Setup .env file
 	cp ./.env.dist ./.env
 
+.PHONY: install
 install: ## install dependencies
 	composer update --no-interaction --no-progress --no-ansi
 	phive --no-progress install --trust-gpg-keys C5095986493B4AA0,033E5F8D801A2F8D
 
+.PHONY: clean
 clean: ## cleanup installed dependencies and lock files
 	rm -rf logs
 	rm -rf tools
