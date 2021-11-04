@@ -68,12 +68,9 @@ final class ChainBuilder
             }
 
             $this->validator->validateDependencyClass($fixtureClass);
-
-            // saving scoped chain for circular reference detection
-            $scopedChain = [$fixtureClass];
             $dependencyChain[$fixtureClass] = $this->buildDependencySubChain(
                 $fixture->getDependencies(),
-                $scopedChain
+                [$fixtureClass]
             );
 
             $this->computeFixture($fixture, $fixtureClass);
@@ -109,7 +106,6 @@ final class ChainBuilder
 
             $this->validator->validateDependencyClass($dependencyClass);
             $scopedChain[] = $dependencyClass;
-
             $dependency = $this->fixtureFactory->createInstance($dependencyClass);
             $dependencySubChain[$dependencyClass] = $this->buildDependencySubChain(
                 $dependency->getDependencies(),

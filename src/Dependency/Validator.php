@@ -21,12 +21,9 @@ final class Validator
     public function validateDependencyClass($dependencyClass): void
     {
         if (\is_string($dependencyClass)
-            && class_exists($dependencyClass)) {
-            $implements = \Safe\class_implements($dependencyClass);
-
-            if (\in_array(FixtureInterface::class, $implements, true)) {
-                return;
-            }
+            && class_exists($dependencyClass)
+            && \in_array(FixtureInterface::class, \Safe\class_implements($dependencyClass), true)) {
+            return;
         }
 
         throw new InvalidFixtureException(\Safe\sprintf('%s is not a valid fixture!', $dependencyClass));
