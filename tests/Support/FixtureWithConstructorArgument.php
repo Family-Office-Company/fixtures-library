@@ -8,11 +8,8 @@ use FamilyOffice\FixturesLibrary\FixtureInterface;
 
 class FixtureWithConstructorArgument implements FixtureInterface
 {
-    private string $foo;
-
-    public function __construct(string $foo)
+    public function __construct(private string $foo)
     {
-        $this->foo = $foo;
     }
 
     public function getDependencies(): array

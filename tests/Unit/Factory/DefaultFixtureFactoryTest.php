@@ -23,7 +23,7 @@ final class DefaultFixtureFactoryTest extends TestCase
     {
         $fixtureFactory = new DefaultFixtureFactory();
 
-        self::assertSame($fixtureClass, \get_class($fixtureFactory->createInstance($fixtureClass)));
+        self::assertSame($fixtureClass, $fixtureFactory->createInstance($fixtureClass)::class);
     }
 
     public function dataProviderTestCreateInstance(): iterable

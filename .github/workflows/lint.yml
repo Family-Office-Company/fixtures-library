@@ -6,17 +6,11 @@ jobs:
   ecs:
     name: Easy coding standard
     runs-on: ubuntu-latest
-    strategy:
-      fail-fast: false
-      matrix:
-        php:
-          - 7.4
-          - 8.0
     steps:
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
         with:
-          php-version: ${{ matrix.php }}
+          php-version: 8.0
 
       - name: Checkout code
         uses: actions/checkout@v2
@@ -30,17 +24,11 @@ jobs:
   ecs-markdown:
     name: Easy coding standard for Markdown
     runs-on: ubuntu-latest
-    strategy:
-      fail-fast: false
-      matrix:
-        php:
-          - 7.4
-          - 8.0
     steps:
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
         with:
-          php-version: ${{ matrix.php }}
+          php-version: 8.0
 
       - name: Checkout code
         uses: actions/checkout@v2
@@ -54,17 +42,11 @@ jobs:
   composer-normalize:
     name: composer.json normalizer
     runs-on: ubuntu-latest
-    strategy:
-      fail-fast: false
-      matrix:
-        php:
-          - 7.4
-          - 8.0
     steps:
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
         with:
-          php-version: ${{ matrix.php }}
+          php-version: 8.0
 
       - name: Checkout code
         uses: actions/checkout@v2
@@ -78,17 +60,11 @@ jobs:
   composer-validate:
     name: composer.json validation
     runs-on: ubuntu-latest
-    strategy:
-      fail-fast: false
-      matrix:
-        php:
-          - 7.4
-          - 8.0
     steps:
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
         with:
-          php-version: ${{ matrix.php }}
+          php-version: 8.0
 
       - name: Checkout code
         uses: actions/checkout@v2
@@ -99,17 +75,11 @@ jobs:
   rector:
     name: Rector
     runs-on: ubuntu-latest
-    strategy:
-      fail-fast: false
-      matrix:
-        php:
-          - 7.4
-          - 8.0
     steps:
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
         with:
-          php-version: ${{ matrix.php }}
+          php-version: 8.0
 
       - name: Checkout code
         uses: actions/checkout@v2
@@ -127,7 +97,7 @@ jobs:
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
         with:
-          php-version: 7.4
+          php-version: 8.0
 
       - name: Checkout code
         uses: actions/checkout@v2

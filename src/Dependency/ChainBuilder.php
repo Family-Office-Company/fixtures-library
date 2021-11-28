@@ -17,20 +17,18 @@ use Safe\Exceptions\StringsException;
 
 final class ChainBuilder
 {
-    private FixtureFactoryInterface $fixtureFactory;
     private Validator $validator;
-    private FixtureComputerInterface $fixtureComputer;
 
     /**
      * @var string[]
      */
     private array $computed = [];
 
-    public function __construct(FixtureFactoryInterface $fixtureFactory, FixtureComputerInterface $fixtureComputer)
-    {
-        $this->fixtureFactory = $fixtureFactory;
+    public function __construct(
+        private FixtureFactoryInterface $fixtureFactory,
+        private FixtureComputerInterface $fixtureComputer
+    ) {
         $this->validator = new Validator();
-        $this->fixtureComputer = $fixtureComputer;
     }
 
     public static function createDefault(): self
@@ -61,7 +59,7 @@ final class ChainBuilder
         }
 
         foreach ($fixtures as $fixture) {
-            $fixtureClass = \get_class($fixture);
+            $fixtureClass = $fixture::class;
 
             if ($this->alreadyComputed($fixtureClass)) {
                 continue;
