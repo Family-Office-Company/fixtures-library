@@ -10,7 +10,7 @@ An easy-to-use library for fixture and dependency loading.
 
 ## ❤️ Feel like contributing?
 
-Read our [contribution guidelines](CONTRIBUTING.md) and create an [issue](https://github.com/FamilyOfficeOrg/fixtures-library/issues/new) or a [pull request](https://github.com/FamilyOfficeOrg/fixtures-library/compare).
+Read our [contribution guidelines](CONTRIBUTING.md) and create an [issue](https://github.com/FamilyOfficeOrg/fixtures-library/issues/new/choose) or a [pull request](https://github.com/FamilyOfficeOrg/fixtures-library/compare).
 
 ## Installation
 
