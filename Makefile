@@ -34,7 +34,6 @@ analysis: ## run static code analysis
 	vendor/bin/phpstan
 	vendor/bin/psalm
 	php tools/composer-require-checker
-	vendor/bin/roave-no-leaks
 
 .PHONY: check
 check: | cs analysis test ## run all quality checks
@@ -44,6 +43,7 @@ check: | cs analysis test ## run all quality checks
 test: ## run unit tests
 	vendor/bin/phpunit
 	XDEBUG_MODE=coverage tools/infection
+	vendor/bin/roave-no-leaks
 
 .PHONY: start
 start: ## start docker environment

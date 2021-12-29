@@ -1,17 +1,16 @@
 {
-	"name": "Fixtures Library Devcontainer",
-	"dockerComposeFile": [
-		"../docker-compose.yml"
-	],
-	"service": "devcontainer",
-	"workspaceFolder": "/workspace",
-	"extensions": [
-		"bmewburn.vscode-intelephense-client",
-		"felixfbecker.php-debug",
-		"kasik96.latte",
-		"ms-azuretools.vscode-docker",
-		"editorconfig.editorconfig",
-        "streetsidesoftware.code-spell-checker",
-        "hediet.vscode-drawio"
-	]
+  "name": "Fixtures Library Devcontainer",
+  "dockerComposeFile": [
+    "../docker-compose.yml"
+  ],
+  "service": "devcontainer",
+  "workspaceFolder": "/workspace",
+  "extensions": [
+    "bmewburn.vscode-intelephense-client",
+    "felixfbecker.php-debug",
+    "kasik96.latte",
+    "ms-azuretools.vscode-docker",
+    "editorconfig.editorconfig",
+    "streetsidesoftware.code-spell-checker"
+  ]
 }
