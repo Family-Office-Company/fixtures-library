@@ -1,0 +1,118 @@
+# These settings are synced to GitHub by https://probot.github.io/apps/settings/
+
+repository:
+  # See https://docs.github.com/en/rest/reference/repos#update-a-repository for all available settings.
+  name: fixtures-library
+  description: ♻️ An easy-to-use library for fixture and dependency loading.
+  homepage: https://github.com/FamilyOfficeOrg
+  topics: php, dependency-parsing, fixtures, fixture-loading
+  private: false
+  has_issues: true
+  has_projects: false
+  has_wiki: false
+  has_downloads: true
+  default_branch: main
+  allow_squash_merge: false
+  allow_merge_commit: true
+  allow_rebase_merge: false
+  delete_branch_on_merge: true
+  enable_automated_security_fixes: true
+  enable_vulnerability_alerts: true
+  archived: false
+
+# Labels: define labels for Issues and Pull Requests
+labels:
+  - name: bug
+    color: '#d73a4a'
+    description: Something isn't working
+
+  - name: dependencies
+    color: '#C0B98E'
+    description: Pull requests that update a dependency file
+
+  - name: documentation
+    color: '#0075ca'
+    description: Improvements or additions to documentation
+
+  - name: dependencies
+    color: 'placeholder'
+    description: This issue or pull request already exists
+
+  - name: duplicate
+    color: '#cfd3d7'
+    description: placeholder
+
+  - name: enhancement
+    color: '#a2eeef'
+    description: New feature or request
+
+  - name: good first issue
+    color: '#7057ff'
+    description: Good for newcomers
+
+  - name: help wanted
+    color: '#008672'
+    description: Extra attention is needed
+
+  - name: invalid
+    color: '#e4e669'
+    description: This doesn't seem right
+
+  - name: question
+    color: '#d876e3'
+    description: Further information is requested
+
+  - name: tests
+    color: '#70EAA0'
+    description: Anything to do with tests
+
+  - name: wontfix
+    color: '#ffffff'
+    description: This will not be worked on
+
+# See https://docs.github.com/en/rest/reference/repos#add-a-repository-collaborator for available options
+collaborators:
+  - username: bpesch
+    permission: admin
+
+branches:
+  - name: main
+    # https://docs.github.com/en/rest/reference/repos#delete-branch-protection
+    # https://docs.github.com/en/rest/reference/repos#update-branch-protection
+
+    protection:
+      required_pull_request_reviews:
+        required_approving_review_count: 1
+        dismiss_stale_reviews: true
+        require_code_owner_reviews: true
+        dismissal_restrictions:
+          users: []
+          teams: []
+      required_status_checks:
+        strict: true
+        contexts:
+          - 'Easy coding standard'
+          - 'Easy coding standard for Markdown'
+          - 'composer.json normalizer'
+          - 'composer.json validation'
+          - 'Rector'
+          - 'XML Lint'
+          - 'Yamllint'
+          - 'Unit & integration tests (lowest)'
+          - 'Unit & integration tests (highest)'
+          - 'Mutation tests'
+          - 'Code Coverage'
+          - 'Unit tests memory leaks (lowest)'
+          - 'Unit tests memory leaks (highest)'
+          - 'PHPStan (lowest)'
+          - 'PHPStan (highest)'
+          - 'Psalm (lowest)'
+          - 'Psalm (highest)'
+          - 'Composer Require Checker (lowest)'
+          - 'Composer Require Checker (highest)'
+      enforce_admins: true
+      required_linear_history: true
+      restrictions:
+        apps: []
+        users: []
+        teams: []

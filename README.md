@@ -90,7 +90,7 @@ A full example of this can be found [here](./example/Basic).
 
 The dependency chain building and loading process can be fully customized to your needs.
 
-An extended documentation on the advanced capabilities of this library can be found [here](docs/advanced.md).
+An extended documentation on the advanced capabilities of this library can be found [here](ADVANCED.md).
 
 ## 📝 License
 

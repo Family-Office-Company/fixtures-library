@@ -24,7 +24,7 @@ clean: ## cleanup installed dependencies and lock files
 cs: ## enforce code style
 	vendor/bin/rector process
 	vendor/bin/ecs check --fix
-	vendor/bin/ecs check-markdown README.md docs/advanced.md --fix
+	vendor/bin/ecs check-markdown README.md ADVANCED.md --fix
 	composer normalize
 	yamllint -c .yamllint.yml --strict .
 	vendor/bin/xmllint ./ -r 0
