@@ -5,12 +5,13 @@
 	],
 	"service": "devcontainer",
 	"workspaceFolder": "/workspace",
-	"settings": {},
 	"extensions": [
 		"bmewburn.vscode-intelephense-client",
 		"felixfbecker.php-debug",
 		"kasik96.latte",
 		"ms-azuretools.vscode-docker",
-		"editorconfig.editorconfig"
+		"editorconfig.editorconfig",
+        "streetsidesoftware.code-spell-checker",
+        "hediet.vscode-drawio"
 	]
 }
