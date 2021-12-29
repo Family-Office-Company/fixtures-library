@@ -8,13 +8,17 @@ An easy-to-use library for fixture and dependency loading.
 
 > ⚠️ Disclaimer: This solution was developed for a very specific use-case. The best way to load fixtures in your use-case is most likely covered by [Doctrines data fixtures](https://github.com/doctrine/data-fixtures).
 
+## ❤️ Feel like contributing?
+
+Read our [contribution guidelines](CONTRIBUTING.md) and create an [issue](https://github.com/FamilyOfficeOrg/fixtures-library/issues/new) or a [pull request](https://github.com/FamilyOfficeOrg/fixtures-library/compare).
+
 ## Installation
 
 ```shell
 composer require family-office/fixtures-library
 ```
 
-## Usage
+## 💡 Usage
 
 ### Creating a fixture
 
@@ -86,9 +90,9 @@ A full example of this can be found [here](./example/Basic).
 
 The dependency chain building and loading process can be fully customized to your needs.
 
-An extended documentation on the advanced capabilities of this library can be found [here](docs/advanced.md).
+An extended documentation on the advanced capabilities of this library can be found [here](ADVANCED.md).
 
-## License
+## 📝 License
 
-This project is licensed under the [MIT](LICENSE) license.  
+This project is licensed under the [MIT](LICENSE) license.
 Feel free to do whatever you want with the code!

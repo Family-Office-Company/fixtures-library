@@ -1,6 +1,6 @@
 # Advanced Usage
 
-Please check the official [README](../README.md) for installation and basic usage instructions.
+Please check the official [README](README.md) for installation and basic usage instructions.
 
 ## Creating a Custom Fixture Factory
 
@@ -9,7 +9,7 @@ injection container or otherwise pre-configure or build the instance to your nee
 
 Creating such a custom fixture factory is as easy as it gets.
 
-Create a class implementing the [`FixtureFactoryInterface`](../src/FixtureFactoryInterface.php), which is set to provide
+Create a class implementing the [`FixtureFactoryInterface`](src/FixtureFactoryInterface.php), which is set to provide
 you with a blueprint of the factory.
 
 The rest is left to you. Fetch the fixture from a dependency injection container, pre-configure it or simply add
@@ -49,7 +49,7 @@ During the process of marking fixtures as computed, we get an opportunity to hoo
 fixture computer.
 
 A production ready example for a custom computer is
-the [`OnFlyFixtureComputer`](../src/Computer/OnFlyFixtureComputer.php). It hooks into the computing process and executes
+the [`OnFlyFixtureComputer`](src/Computer/OnFlyFixtureComputer.php). It hooks into the computing process and executes
 all fixtures on-the-fly.
 
 The example implementation adds additional logging to the computing process.
@@ -88,7 +88,7 @@ If the dependency chain is first built and then loaded, we haven't gotten a chan
 
 This can be done by creating a custom fixture loader.
 
-The blueprint interface for custom fixture loaders is [`FixtureLoaderInterface`](./../src/FixtureLoaderInterface.php)
+The blueprint interface for custom fixture loaders is [`FixtureLoaderInterface`](src/FixtureLoaderInterface.php)
 
 In this example, we again add additional logging to the loading process.
 
@@ -128,4 +128,4 @@ $dependencyChainLoader = new ChainLoader($customFixtureFactory, $customFixtureLo
 
 ## Full Example
 
-A full example of this can be found [here](../example/Advanced).
+A full example of this can be found [here](example/Advanced).
