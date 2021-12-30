@@ -5,5 +5,5 @@ updates:
     directory: "/"
     schedule:
       interval: "daily"
-    reviewers:
-      - bpesch
+    allow:
+      - dependency-type: "all"
