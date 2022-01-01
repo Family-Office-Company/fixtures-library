@@ -7,3 +7,7 @@ updates:
       interval: "daily"
     allow:
       - dependency-type: "all"
+    assignees:
+      - bpesch
+    reviewers:
+      - bpesch
