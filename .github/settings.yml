@@ -34,13 +34,9 @@ labels:
     color: '#0075ca'
     description: Improvements or additions to documentation
 
-  - name: dependencies
-    color: 'placeholder'
-    description: This issue or pull request already exists
-
   - name: duplicate
     color: '#cfd3d7'
-    description: placeholder
+    description: This issue or pull request already exists
 
   - name: enhancement
     color: '#a2eeef'
