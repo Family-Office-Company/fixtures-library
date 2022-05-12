@@ -3,7 +3,7 @@
 repository:
   # See https://docs.github.com/en/rest/reference/repos#update-a-repository for all available settings.
   name: fixtures-library
-  description: ♻️ An easy-to-use library for fixture and dependency loading.
+  description: An easy-to-use library for fixture and dependency loading.
   homepage: https://github.com/FamilyOfficeOrg
   topics: php, dependency-parsing, fixtures, fixture-loading
   private: false
